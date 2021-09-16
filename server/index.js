@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-const PORT = 8000;
+const PORT = 4000;
 
 express()
   .use(function(req, res, next) {
