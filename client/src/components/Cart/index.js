@@ -1,0 +1,8 @@
+// Don't forget to comment
+import React from "react";
+
+const Cart = () => {
+  return <div></div>;
+};
+
+export default index;
