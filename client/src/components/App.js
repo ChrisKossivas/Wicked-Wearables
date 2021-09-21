@@ -43,7 +43,4 @@ const Main = styled.div`
   /* height: 100%; */
   height: 100vh;
   width: 100%;
-  background-color: #316b83;
-  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 `;

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
-//import items
-//loading wheel
+import CircularLoading from "../CircularLoading";
+import SingleItem from "./SingleItem";
 
 /// responsive page needed
 
@@ -16,27 +15,28 @@ const HomePage = () => {
       .then((data) => {
         setAllProduct(data);
         setLoaded(true);
+        // console.log(data.data);
       });
   }, []);
 
   return (
-    <Main id="grid">
+    <Main id="homepage">
       <TextWrapper>
         <Paragraph>Check out all our ...stuff</Paragraph>
       </TextWrapper>
-      {/* {Loaded ? ( */}
-      <Wrapper>
-        {/* {allProduct.data.map((item, i) => {
-                        return <SingleItem key={i} item={item} i={i} />;
-                    })} */}
-      </Wrapper>
-      {/* ) : (
-                <>
-                    <Center>
-                        <Loading />
-                    </Center>
-                </>
-            )} */}
+      {Loaded ? (
+        <Wrapper>
+          {allProduct.data.map((item, i) => {
+            return <SingleItem key={i} item={item} i={i} />;
+          })}
+        </Wrapper>
+      ) : (
+        <>
+          <Center>
+            <CircularLoading></CircularLoading>
+          </Center>
+        </>
+      )}
     </Main>
   );
 };
@@ -49,12 +49,14 @@ const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: #ffffff;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 `;
 
 const Paragraph = styled.p`
   /* color: $; */
-  font-weight: 700;
+  font-weight: 600;
 `;
 
 const TextWrapper = styled.div``;
@@ -71,4 +73,5 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px 0;
+  flex-wrap: wrap;
 `;
