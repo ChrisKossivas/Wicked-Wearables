@@ -1,8 +1,10 @@
 "use strict";
 
 const express = require("express");
-const bodyParser = require("body-parser");
 const morgan = require("morgan");
+
+// Import handler functions
+const { getItems, getItemById } = require("./handlers");
 
 const PORT = 4000;
 
@@ -20,11 +22,15 @@ express()
   })
   .use(morgan("tiny"))
   .use(express.static("./server/assets"))
-  .use(bodyParser.json())
+  .use(express.json())
   .use(express.urlencoded({ extended: false }))
   .use("/", express.static(__dirname + "/"))
 
   // REST endpoints?
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
+
+  // GET items
+  .get("/api/items", getItems)
+  .get("/api/items/:_id", getItemById)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
