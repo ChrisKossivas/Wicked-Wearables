@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import HomePage from "./HomePage/index";
 import ItemDetails from "./ItemDetails/index";
-
+import Header from "./Header";
+import GlobalStyles from "./GlobalStyles";
 function App() {
   // const [bacon, setBacon] = useState(null);
 
@@ -15,14 +16,15 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <GlobalStyles /> */}
+      <GlobalStyles />
       <Main>
+        <Header />
         <Switch>
           <Route exact path="/">
             <HomePage></HomePage>
           </Route>
           <Route exact path="/cart"></Route>
-          <Route exact path="/itemDetail">
+          <Route exact path="/itemDetail/:itemId">
             <ItemDetails></ItemDetails>
           </Route>
           <Route exact path="/error"></Route>
