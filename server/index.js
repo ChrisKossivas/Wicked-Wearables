@@ -4,7 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 
 // Import handler functions
-const { getItems, getItemById } = require("./handlers");
+const { getItems, getItemById, addToCart } = require("./handlers");
 
 const PORT = 4000;
 
@@ -30,7 +30,10 @@ express()
   .get("/bacon", (req, res) => res.status(200).json("🥓"))
 
   // GET items
-  .get("/api/items", getItems)
-  .get("/api/items/:_id", getItemById)
+  .get("/api/item", getItems)
+  .get("/api/item/:itemId", getItemById)
+
+  // POST items into cart. Needs: id of item as JSON Body
+  .post("/api/item", addToCart)
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
