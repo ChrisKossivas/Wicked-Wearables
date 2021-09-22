@@ -3,6 +3,7 @@
 
 const fileSytem = require("file-system");
 const items = JSON.parse(fileSytem.readFileSync("./data/items.json"));
+const companies = JSON.parse(fileSytem.readFileSync("./data/companies.json"))
 
 // shopping cart that will be added to localstorage through frontend
 let cart = [];
@@ -32,4 +33,12 @@ const cartAdd = (item, itemId) => {
   return item.numInStock <= 0 ? null : cart;
 };
 
-module.exports = { cartAdd, findItem };
+
+// Find company by id
+const findCompany = (companyId) => {
+  const result = companies.find((company) => company._id === parseInt(companyId));
+  return result === undefined ? null : result;
+
+}
+
+module.exports = { cartAdd, findItem, findCompany };
