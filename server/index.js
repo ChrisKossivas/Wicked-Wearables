@@ -4,7 +4,14 @@ const express = require("express");
 const morgan = require("morgan");
 
 // Import handler functions
-const { getItems, getItemById, addToCart, getCompanyById } = require("./handlers");
+const { 
+  getItems, 
+  getItemById,
+  addToCart, 
+  getCompanyById, 
+  addToWishList, 
+  getCompanies,
+} = require("./handlers");
 
 const PORT = 4000;
 
@@ -37,6 +44,12 @@ express()
   .post("/api/item", addToCart)
 
   // GET company by id
+  .get("/api/company", getCompanies)
   .get("/api/company/:companyId", getCompanyById)
+
+
+  // POST items into wish list. Needs: id of item as JSON Body
+  .post("/api/item/wishlist", addToWishList)
+
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
