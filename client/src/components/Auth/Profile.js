@@ -5,9 +5,14 @@ import styled from "styled-components";
 
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
-  console.log("user", user);
-  const userData = user.sub;
-  //   localStorage.setItem("id", { userData });
+  // console.log("user", user);
+
+  // Unique user id is at user.sub
+  if (user !== undefined) {
+    const userData = user;
+    console.log("userData", userData);
+    localStorage.setItem("User", JSON.stringify(userData));
+  }
   return (
     isAuthenticated && (
       <div>
