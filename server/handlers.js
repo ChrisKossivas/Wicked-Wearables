@@ -1,5 +1,6 @@
 const fileSytem = require("file-system");
 const items = JSON.parse(fileSytem.readFileSync("./data/items.json"));
+const companies = JSON.parse(fileSytem.readFileSync("./data/companies.json"))
 
 // ***********************//
 // Don't forget to comment//
@@ -9,11 +10,54 @@ const items = JSON.parse(fileSytem.readFileSync("./data/items.json"));
 const { 
   cartAdd,
   findItem,
+  findCompany,
 } = require("./data/api")
 
+
 // Function that will return all items in random order
+// As well, it has an optional filter based on req.query that is sent. It will return filtered items in order
 const getItems = async (req, res) => {
   try {
+    const { category, company } = req.query
+
+    // return filtered data based on which category was sent as a req.query or which companyId was sent as a req.query
+    if (category !== undefined) {
+
+      // return category filter from req.query
+      const resultQuery = items.filter(item => (item.category.toLowerCase().includes(category.toLowerCase())))
+
+      if (resultQuery.length === 0) {
+        res
+        .status(400)
+        .json({ status: 400, message: "Category: " + `${category}` + " does not exist" });
+      return;
+      }
+
+      res
+      .status(200)
+      .json({ status: 200, data: resultQuery, message: "Filterd by category: " + `${category}` });
+      return;
+      
+    }
+    else if (company !== undefined) {
+      // return company filter from req.query
+      const companyQuery = items.filter(item => (item.companyId === parseInt(company)))
+
+      if (companyQuery.length === 0) {
+        res
+        .status(400)
+        .json({ status: 400, message: "Company: " + `${company}` + " does not exist" });
+      return;
+      }
+      
+      res
+      .status(200)
+      .json({ status: 200, data: companyQuery, message: "Filterd by Brand: " + `${company}` });
+      return;
+
+    }
+    
+    // return all items (no filter)
     const result = await items.sort(() => 0.5 - Math.random());
 
     if (result.length <= 0) {
@@ -28,6 +72,8 @@ const getItems = async (req, res) => {
       .json({ status: 500, message: "Error occured with items request" });
   }
 };
+
+
 
 // Function that will return item by id
 const getItemById = async (req, res) => {
@@ -94,4 +140,33 @@ const addToCart = (req, res) => {
 }
 
 
-module.exports = { getItems, getItemById, addToCart };
+// Function for returning a company object by id
+
+const getCompanyById = async (req, res) => {
+
+  try {
+    const { companyId } = req.params;
+
+    const result = await findCompany(companyId)
+  
+  
+    if (result === null) {
+      res
+      .status(400)
+      .json({ status: 400, message: "Company does not exist" });
+      return 
+    }
+
+    return res.status(200).json({status: 200, company: result, message: "Company details!"})
+  }
+  catch (err) {
+    res
+    .status(500)
+    .json({ status: 500, message: "Error occured with Company Details request" });
+  }
+
+
+}
+
+
+module.exports = { getItems, getItemById, addToCart, getCompanyById };
