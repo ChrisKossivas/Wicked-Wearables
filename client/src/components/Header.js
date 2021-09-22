@@ -6,6 +6,7 @@ import GlobalStyles from "./GlobalStyles";
 import LoginButton from "./Auth/LoginButton";
 import LogoutButton from "./Auth/LogoutButton";
 import Profile from "./Auth/Profile";
+import { FaCartArrowDown } from "react-icons/fa";
 
 const Header = () => {
   return (
@@ -16,7 +17,12 @@ const Header = () => {
           <HomeTitle>Home</HomeTitle>
         </Link>
         <Link to="/cart" style={{ textDecoration: "none" }}>
-          <CartTitle>Shopping Cart</CartTitle>
+          <CartTitle>
+            Shopping Cart
+            <CartIcon>
+              <FaCartArrowDown />
+            </CartIcon>
+          </CartTitle>
         </Link>
         <>
           <LoginButtons>
@@ -58,6 +64,9 @@ const LoginButtons = styled.div`
 `;
 const ProfileWrapper = styled.div`
   padding: 50px 25px 0 0;
+`;
+const CartIcon = styled.div`
+  /* padding-top: 5px; */
 `;
 
 export default Header;
