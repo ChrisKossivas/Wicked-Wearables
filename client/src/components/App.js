@@ -5,9 +5,12 @@ import HomePage from "./HomePage/index";
 import ItemDetails from "./ItemDetails/index";
 import Header from "./Header";
 import GlobalStyles from "./GlobalStyles";
-import CartModal from './Cart/CartModal'
+import CartModal from "./Cart/CartModal";
+
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(true);
+
+  // werwrsfsdfw;
 
   // useEffect(() => {
   //   fetch("/bacon")
@@ -22,7 +25,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/">
-            <HomePage></HomePage>
+            <HomePage setIsCartOpen={setIsCartOpen}></HomePage>
           </Route>
           <Route exact path="/cart"></Route>
           <Route exact path="/itemDetail/:itemId">

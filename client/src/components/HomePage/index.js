@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import CircularLoading from "../CircularLoading";
 import SingleItem from "./SingleItem";
 
 /// responsive page needed
 
-const HomePage = () => {
+const HomePage = ({ setIsCartOpen }) => {
   const [allProduct, setAllProduct] = useState([]);
   const [Loaded, setLoaded] = useState(false);
+
   ///get will change for singular "item"
   useEffect(() => {
     fetch("/api/item/")
@@ -21,6 +22,7 @@ const HomePage = () => {
 
   return (
     <Main id="homepage">
+      <button onClick={() => setIsCartOpen(true)}>Open Cart</button>
       <TextWrapper>
         <Paragraph>Check out all our ...stuff</Paragraph>
       </TextWrapper>
