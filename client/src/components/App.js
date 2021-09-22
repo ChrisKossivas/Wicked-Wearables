@@ -5,15 +5,9 @@ import HomePage from "./HomePage/index";
 import ItemDetails from "./ItemDetails/index";
 import Header from "./Header";
 import GlobalStyles from "./GlobalStyles";
-<<<<<<< Updated upstream
-=======
-import CartModal from "./Cart/CartModal";
-
->>>>>>> Stashed changes
+import CartModal from './Cart/CartModal'
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(true);
-
-  werwrsfsdfw;
 
   // useEffect(() => {
   //   fetch("/bacon")
@@ -28,11 +22,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/">
-<<<<<<< Updated upstream
             <HomePage></HomePage>
-=======
-            <HomePage setIsCartOpen={setIsCartOpen}></HomePage>
->>>>>>> Stashed changes
           </Route>
           <Route exact path="/cart"></Route>
           <Route exact path="/itemDetail/:itemId">
@@ -55,8 +45,4 @@ const Main = styled.div`
   /* height: 100%; */
   height: 100vh;
   width: 100%;
-<<<<<<< Updated upstream
 `;
-=======
-`;
->>>>>>> Stashed changes

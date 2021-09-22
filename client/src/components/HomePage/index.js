@@ -1,27 +1,16 @@
-<<<<<<< Updated upstream
 import React, { useState, useEffect } from "react";
-=======
-import React, { useState, useEffect, useContext } from "react";
->>>>>>> Stashed changes
 import styled from "styled-components";
 import CircularLoading from "../CircularLoading";
 import SingleItem from "./SingleItem";
 
 /// responsive page needed
 
-<<<<<<< Updated upstream
 const HomePage = () => {
   const [allProduct, setAllProduct] = useState([]);
   const [Loaded, setLoaded] = useState(false);
-=======
-const HomePage = ({ setIsCartOpen }) => {
-  const [allProduct, setAllProduct] = useState([]);
-  const [Loaded, setLoaded] = useState(false);
-
->>>>>>> Stashed changes
   ///get will change for singular "item"
   useEffect(() => {
-    fetch("/api/items/")
+    fetch("/api/item/")
       .then((res) => res.json())
       .then((data) => {
         setAllProduct(data);
@@ -32,10 +21,6 @@ const HomePage = ({ setIsCartOpen }) => {
 
   return (
     <Main id="homepage">
-<<<<<<< Updated upstream
-=======
-      <button onClick={() => setIsCartOpen(true)}>Open Cart</button>
->>>>>>> Stashed changes
       <TextWrapper>
         <Paragraph>Check out all our ...stuff</Paragraph>
       </TextWrapper>
