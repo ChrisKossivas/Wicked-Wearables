@@ -10,7 +10,7 @@ const Profile = () => {
   // Unique user id is at user.sub
   if (user !== undefined) {
     const userData = user;
-    console.log("userData", userData);
+    // console.log("userData", userData);
     localStorage.setItem("User", JSON.stringify(userData));
   }
   return (
