@@ -95,6 +95,8 @@ const HomePage = ({ setIsCartOpen, addCartItem }) => {
   );
 };
 
+export default HomePage;
+
 const Wrapper = styled.div`
   background: linear-gradient(90deg, #fff 50%, #f3f3f3 50%);
   width: 100vw;

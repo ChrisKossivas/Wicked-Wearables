@@ -7,6 +7,7 @@ import Header from "./Header";
 import GlobalStyles from "./GlobalStyles";
 import CartModal from "./Cart/CartModal";
 import ItemDescription from "./ItemDetails/ItemDescription";
+import Wishlist from "./Cart/Wishlist";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(true);
@@ -21,7 +22,7 @@ function App() {
     <BrowserRouter>
       <GlobalStyles />
       <Main>
-        <Header />
+        <Header setIsCartOpen={setIsCartOpen} />
         <Switch>
           <Route exact path="/">
             <HomePage
@@ -32,6 +33,9 @@ function App() {
           <Route exact path="/cart"></Route>
           <Route exact path="/itemDetail/:itemId">
             <ItemDetails></ItemDetails>
+          </Route>
+          <Route exact path="/wishlist">
+            <Wishlist></Wishlist>
           </Route>
           <Route exact path="/error"></Route>
         </Switch>
