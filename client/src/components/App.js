@@ -6,18 +6,16 @@ import ItemDetails from "./ItemDetails/index";
 import Header from "./Header";
 import GlobalStyles from "./GlobalStyles";
 import CartModal from "./Cart/CartModal";
+import ItemDescription from "./ItemDetails/ItemDescription";
+
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
 
-  // werwrsfsdfw;
+function addCartItem(item) {setCartItems([...cartItems,item])}
 
-  // useEffect(() => {
-  //   fetch("/bacon")
-  //     .then((res) => res.json())
-  //     .then((data) => setBacon(data));
-  // }, []);
-
+//console.log(cartItems)
   return (
     <BrowserRouter>
       <GlobalStyles />
@@ -25,7 +23,9 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/">
-            <HomePage setIsCartOpen={setIsCartOpen}></HomePage>
+            <HomePage setIsCartOpen={setIsCartOpen}
+                      addCartItem={addCartItem}>
+                      </HomePage>
           </Route>
           <Route exact path="/cart"></Route>
           <Route exact path="/itemDetail/:itemId">
@@ -33,7 +33,7 @@ function App() {
           </Route>
           <Route exact path="/error"></Route>
         </Switch>
-        {isCartOpen && <CartModal setIsCartOpen={setIsCartOpen} />}
+        {isCartOpen && <CartModal setIsCartOpen={setIsCartOpen} cartItems={cartItems} />}
       </Main>
     </BrowserRouter>
   );

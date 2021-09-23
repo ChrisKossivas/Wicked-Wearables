@@ -1,8 +1,7 @@
-// Don't forget to comment
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const SingleItem = ({ item, index }) => {
+const SingleItem = ({ item, addCartItem, hideAddButton }) => {
   //   let history = useHistory();
 
   //   const addToCartFunc = (item, ev) => {
@@ -36,13 +35,12 @@ const SingleItem = ({ item, index }) => {
           <Stock>
             Quantity: <Span>{item.numInStock}</Span>
           </Stock>
-          <AddButton
-          // disabled={disabled}
-          // className={disabled}
-          // onClick={(ev) => addToCartFunc(item, ev)}
+          {!hideAddButton &&<AddButton
+          onClick={()=>addCartItem(item)
+          }
           >
             Add
-          </AddButton>
+          </AddButton>}
         </Footer>
       </ItemDetails>
     </Item>
