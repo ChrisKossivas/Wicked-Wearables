@@ -54,7 +54,7 @@ const FilterBar = ({
 };
 
 const Wrapper = styled.div`
-  min-width: 360px;
+  min-width: 330px;
   padding: 3rem;
   flex: 1.5;
   font-size: 1.2rem;

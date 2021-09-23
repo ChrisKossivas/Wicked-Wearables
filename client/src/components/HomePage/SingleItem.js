@@ -12,6 +12,7 @@ const SingleItem = ({
   hideAddButton,
   selectedItem,
   setSelectedItem,
+  addItemToCart,
 }) => {
   const history = useHistory();
 
@@ -30,15 +31,11 @@ const SingleItem = ({
   //   }
 
   // Funtion that will be called when you press add button on item
-  const handleAddBtn = (ev) => {
+  const handleAddBtn = (ev, id) => {
     ev.stopPropagation();
     setIsCartOpen(true);
 
-    // const savedItem = localStorage.filter((data) => data.id === item._id);
-    // if (savedItem.length > 0) {
-    // } else {
-    //   setSelectedItem([...selectedItem, { id: item._id, qty: 1 }]);
-    // }
+    addItemToCart(id, 1);
   };
 
   return (
@@ -59,9 +56,9 @@ const SingleItem = ({
             disabled={item.numInStock <= 0 ? true : false}
             // className={disabled}
             // !hideAddButton &&<AddButton
+            // addCartItem(item);
             onClick={(ev) => {
-              handleAddBtn(ev);
-              addCartItem(item);
+              handleAddBtn(ev, item._id);
             }}
           >
             {item.numInStock > 0 ? (
