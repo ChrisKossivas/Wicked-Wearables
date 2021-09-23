@@ -7,6 +7,8 @@ import Header from "./Header";
 import GlobalStyles from "./GlobalStyles";
 import CartModal from "./Cart/CartModal";
 import ItemDescription from "./ItemDetails/ItemDescription";
+import ErrorPage from "./ErrorPage";
+import CheckoutPage from "./CheckoutPage";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(true);
@@ -33,7 +35,12 @@ function App() {
           <Route exact path="/itemDetail/:itemId">
             <ItemDetails></ItemDetails>
           </Route>
-          <Route exact path="/error"></Route>
+          <Route exact path="/error">
+            <ErrorPage></ErrorPage>
+          </Route>
+          <Route exact path="/checkout">
+            <CheckoutPage></CheckoutPage>
+          </Route>
         </Switch>
         {isCartOpen && (
           <CartModal setIsCartOpen={setIsCartOpen} cartItems={cartItems} />

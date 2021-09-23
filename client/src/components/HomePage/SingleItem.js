@@ -100,7 +100,6 @@ const ImgWrapper = styled.div`
   position: relative;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in, transform 0.2s ease-in;
-
   &:hover {
     border: solid 1px var(--color-darkTurq);
     #img {
@@ -128,7 +127,6 @@ const ItemDetails = styled.div`
   justify-content: center;
   align-items: center;
   transition: transform 0.4s ease-in;
-
   &:hover {
     opacity: 0.9;
     transform: translateX(7.5%) translateY(-7.5%);
@@ -141,7 +139,6 @@ const AddButton = styled.button`
   background: none;
   font-size: 2.5rem;
   cursor: pointer;
-
   &:disabled {
     color: lightgray;
     cursor: not-allowed;
