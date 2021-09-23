@@ -34,9 +34,11 @@ const ItemDescription = ({ selectedItem, selectedCompany }) => {
           <Tag>{body_location}</Tag>
         </TagWrapper>
         <Title>{name}</Title>
-        {/* <p>
-                <a href={`${selectedC.mpany.url}`}>{selectedCompany.name}</a>
-              </p> */}
+        {selectedCompany ? (
+          <Company>
+            <a href={`${selectedCompany.url}`}>{selectedCompany.name}</a>
+          </Company>
+        ) : null}
         <Quantity>
           <button onClick={handleSub}>-</button>
           <button onClick={handleAdd}>+</button>
@@ -92,9 +94,16 @@ const Tag = styled.span`
 `;
 
 const Title = styled.h2`
-  margin-bottom: 3.5rem;
+  margin-bottom: 0.4rem;
 `;
 
+const Company = styled.p`
+  margin-bottom: 2.5rem;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+`;
 const Quantity = styled.span`
   position: relative;
 

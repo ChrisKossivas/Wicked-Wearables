@@ -2,8 +2,8 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
-  :root {
+
+:root {
     --color-darkTurq: #316B83;
     --color-lightGrey: #6D8299;
     --color-paleGreen: #8CA1A5;

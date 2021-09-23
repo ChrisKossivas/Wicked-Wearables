@@ -8,14 +8,15 @@ import GlobalStyles from "./GlobalStyles";
 import CartModal from "./Cart/CartModal";
 import ItemDescription from "./ItemDetails/ItemDescription";
 
-
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(true);
   const [cartItems, setCartItems] = useState([]);
 
-function addCartItem(item) {setCartItems([...cartItems,item])}
+  function addCartItem(item) {
+    setCartItems([...cartItems, item]);
+  }
 
-//console.log(cartItems)
+  //console.log(cartItems)
   return (
     <BrowserRouter>
       <GlobalStyles />
@@ -23,9 +24,10 @@ function addCartItem(item) {setCartItems([...cartItems,item])}
         <Header />
         <Switch>
           <Route exact path="/">
-            <HomePage setIsCartOpen={setIsCartOpen}
-                      addCartItem={addCartItem}>
-                      </HomePage>
+            <HomePage
+              setIsCartOpen={setIsCartOpen}
+              addCartItem={addCartItem}
+            ></HomePage>
           </Route>
           <Route exact path="/cart"></Route>
           <Route exact path="/itemDetail/:itemId">
@@ -33,7 +35,9 @@ function addCartItem(item) {setCartItems([...cartItems,item])}
           </Route>
           <Route exact path="/error"></Route>
         </Switch>
-        {isCartOpen && <CartModal setIsCartOpen={setIsCartOpen} cartItems={cartItems} />}
+        {isCartOpen && (
+          <CartModal setIsCartOpen={setIsCartOpen} cartItems={cartItems} />
+        )}
       </Main>
     </BrowserRouter>
   );

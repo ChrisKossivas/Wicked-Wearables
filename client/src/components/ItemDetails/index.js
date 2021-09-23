@@ -9,26 +9,34 @@ const ItemDetails = () => {
   const [selectedItem, setSelectedItem] = useState();
   const [selectedCompany, setSelectedCompany] = useState();
 
-  useEffect(() => {
-    const getData = async () => {
-      // fetch data itemById
-      await fetch(`/api/item/${itemId}`)
-        .then((res) => res.json())
-        .then((data) => setSelectedItem(data.data));
+  console.log(selectedCompany);
+  // let companyId = selectedItem ? selectedItem.companyId : null;
 
-      // fetch data companyById
-      // TODO: create endpoint that fetchs company data by id
-      // await fetch(`/api/company/${selectedItem.companyId}`)
-      //   .then((res) => res.json())
-      //   .then((data) => setSelectedCompany(data.data));
-    };
-    getData();
+  useEffect(() => {
+    // fetch data itemById
+    fetch(`/api/item/${itemId}`)
+      .then((res) => res.json())
+      .then((data) => setSelectedItem(data.data));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    //fetch data companyById
+    if (!selectedItem) {
+      return;
+    } else {
+      fetch(`/api/company/${selectedItem.companyId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setSelectedCompany(data.company);
+        });
+    }
+  }, [selectedItem]);
 
   return selectedItem ? (
     <ItemPage>
       <Background
-        style={{ "background-image": `url("${selectedItem.imageSrc}")` }}
+        style={{ backgroundImage: `url("${selectedItem.imageSrc}")` }}
       />
       <Backdrop>
         <ItemDescription
