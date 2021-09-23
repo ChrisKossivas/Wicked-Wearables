@@ -8,14 +8,34 @@ import GlobalStyles from "./GlobalStyles";
 import CartModal from "./Cart/CartModal";
 import ItemDescription from "./ItemDetails/ItemDescription";
 import Wishlist from "./Cart/Wishlist";
+import ErrorPage from "./ErrorPage";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(true);
   const [cartItems, setCartItems] = useState([]);
 
-  function addCartItem(item) {
-    setCartItems([...cartItems, item]);
-  }
+  // function addCartItem(item) {
+  //   setCartItems([...cartItems, item]);
+  // }
+
+  const addItemToCart = (_id, quantity) => {
+    const requestAddCart = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ itemId: _id, quantity: quantity }),
+    };
+    fetch("/api/item", requestAddCart)
+      .then((res) => res.json())
+      .then((newCart) => {
+        const { message, cart } = newCart;
+        if (message === "Cart Items!") {
+          localStorage.setItem("newCart", JSON.stringify(cart));
+          // setCartStatus("idle");
+        } else if (message === "Item Already In Cart") {
+          return;
+        }
+      });
+  };
 
   //console.log(cartItems)
   return (
@@ -27,12 +47,16 @@ function App() {
           <Route exact path="/">
             <HomePage
               setIsCartOpen={setIsCartOpen}
-              addCartItem={addCartItem}
+              // addCartItem={addCartItem}
+              addItemToCart={addItemToCart}
             ></HomePage>
           </Route>
           <Route exact path="/cart"></Route>
           <Route exact path="/itemDetail/:itemId">
-            <ItemDetails></ItemDetails>
+            <ItemDetails addItemToCart={addItemToCart} />
+          </Route>
+          <Route exact path="/error">
+            <ErrorPage />
           </Route>
           <Route exact path="/wishlist">
             <Wishlist></Wishlist>
