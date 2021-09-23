@@ -106,4 +106,4 @@ const ItemWrapper = styled.div`
   flex-wrap: wrap; */
 `;
 
-export default HomePage;
+export default HomePage

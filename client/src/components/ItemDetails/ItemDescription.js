@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const ItemDescription = ({ selectedItem, selectedCompany }) => {
-  const { name, price, category, body_location, imageSrc, numInStock } =
+const ItemDescription = ({ selectedItem, selectedCompany, addItemToCart }) => {
+  const { name, price, category, body_location, imageSrc, numInStock, _id } =
     selectedItem;
 
   const initialQty = numInStock <= 0 ? 0 : 1;
   const [quantity, setQuantity] = useState(initialQty);
+
 
   // Function that will validate quantity number
   const validateQty = (num) => {
@@ -25,6 +26,7 @@ const ItemDescription = ({ selectedItem, selectedCompany }) => {
     validateQty(result);
   };
 
+  
   return (
     <Wrapper>
       <Image src={imageSrc} alt={name} />
@@ -52,7 +54,7 @@ const ItemDescription = ({ selectedItem, selectedCompany }) => {
         {numInStock <= 0 ? (
           <CartBtn disabled>Out of Stock</CartBtn>
         ) : (
-          <CartBtn>Add to Cart</CartBtn>
+          <CartBtn onClick={() => addItemToCart(_id, quantity)}>Add to Cart</CartBtn>
         )}
       </Detail>
     </Wrapper>

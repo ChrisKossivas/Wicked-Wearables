@@ -59,6 +59,22 @@ const cartAdd = (item, itemId, quantity) => {
   return item.numInStock <= 0 ? null : cart;
 };
 
+
+// delete item from shopping cart
+const cartDelete = (itemId, item) => {
+
+  cart.find((cartItem, index) => {
+    if (cartItem._id === parseInt(itemId)) {
+      console.log(cartItem)
+      console.log(index)
+      cart.splice(index, 1)
+    }
+
+
+  })
+
+}
+
 // Find company by id
 const findCompany = (companyId) => {
   const result = companies.find(
@@ -88,4 +104,5 @@ module.exports = {
   filterByCategory,
   filterByCompany,
   filterBySearch,
+  cartDelete,
 };
