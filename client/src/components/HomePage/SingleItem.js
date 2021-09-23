@@ -1,8 +1,21 @@
+// Don't forget to comment
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
+import { MdShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
 
-const SingleItem = ({ item, addCartItem, hideAddButton }) => {
-  //   let history = useHistory();
+const SingleItem = ({
+  setIsCartOpen,
+  item,
+  idx,
+  addCartItem,
+  hideAddButton,
+  selectedItem,
+  setSelectedItem,
+}) => {
+  const history = useHistory();
+
+  // const localStorage = localStorage.getItem("cart");
 
   //   const addToCartFunc = (item, ev) => {
   //     ev.stopPropagation();
@@ -16,33 +29,49 @@ const SingleItem = ({ item, addCartItem, hideAddButton }) => {
   //     disabled = true;
   //   }
 
+  // Funtion that will be called when you press add button on item
+  const handleAddBtn = (ev) => {
+    ev.stopPropagation();
+    setIsCartOpen(true);
+
+    // const savedItem = localStorage.filter((data) => data.id === item._id);
+    // if (savedItem.length > 0) {
+    // } else {
+    //   setSelectedItem([...selectedItem, { id: item._id, qty: 1 }]);
+    // }
+  };
+
   return (
-    ///item wrapps everything and will have an Onclick that will direct to the Item Details
     <Item
-    //   key={i}
-    //   onClick={() => {
-    //     history.push(`/product/${}`);
-    //     window.scrollTo(0, 0);
-    //   }}
+      key={idx}
+      onClick={() => {
+        history.push(`/itemDetail/${item._id}`);
+        window.scrollTo(0, 0);
+      }}
     >
       <ImgWrapper>
-        <Img src={item.imageSrc} alt="Item picture" loading="lazy" />
-      </ImgWrapper>
-      <ItemDetails>
-        <ItemName>{item.name}</ItemName>
-        <Price>{item.price}</Price>
-        <Footer>
-          <Stock>
-            Quantity: <Span>{item.numInStock}</Span>
-          </Stock>
-          {!hideAddButton &&<AddButton
-          onClick={()=>addCartItem(item)
-          }
+        <Img id="img" src={item.imageSrc} alt="Item picture" loading="lazy" />
+        <ItemDetails>
+          <ItemName>{item.name}</ItemName>
+          <Price>{item.price}</Price>
+          <AddButton
+            id="addBtn"
+            disabled={item.numInStock <= 0 ? true : false}
+            // className={disabled}
+            // !hideAddButton &&<AddButton
+            onClick={(ev) => {
+              handleAddBtn(ev);
+              addCartItem(item);
+            }}
           >
-            Add
-          </AddButton>}
-        </Footer>
-      </ItemDetails>
+            {item.numInStock > 0 ? (
+              <MdShoppingCart />
+            ) : (
+              <MdRemoveShoppingCart />
+            )}
+          </AddButton>
+        </ItemDetails>
+      </ImgWrapper>
     </Item>
   );
 };
@@ -50,84 +79,87 @@ const SingleItem = ({ item, addCartItem, hideAddButton }) => {
 export default SingleItem;
 
 const Item = styled.div`
+  width: 340px;
+  padding: 3rem;
+  position: relative;
   display: flex;
-  text-decoration: none;
-  &:visited {
-    color: #8ca1a5;
-  }
-  width: 12%;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 35px 30px;
-  &:hover {
-    cursor: pointer;
-    box-shadow: 1px 4px 8px 2px rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 4px;
-  }
 `;
 
 const ImgWrapper = styled.div`
-  width: 120px;
-  height: 120px;
-  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 280px;
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* overflow: hidden; */
+  position: relative;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in, transform 0.2s ease-in;
+
   &:hover {
-    transform: rotate(15deg) scale(1.1);
+    border: solid 1px var(--color-darkTurq);
+    #img {
+      transform: rotate(5deg) scale(1.3);
+    }
   }
 `;
 
 const Img = styled.img`
-  width: 100%;
-  height: 100%;
+  transition: transform 0.4s ease-in;
 `;
 
 const ItemDetails = styled.div`
+  background-color: var(--color-darkTurq);
+  opacity: 0;
+  width: 280px;
+  height: 360px;
+  border-radius: 10px;
+  padding-top: 1.5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-`;
-
-const ItemName = styled.h5`
-  height: 85px;
-  font-size: 16px;
-`;
-
-const Footer = styled.div`
-  display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-`;
+  transition: transform 0.4s ease-in;
 
-const Stock = styled.p`
-  color: #316b83;
-  padding-right: 10px;
-`;
-
-const Span = styled.span`
-  font-weight: 700;
-  &.normal {
-    color: grey;
+  &:hover {
+    opacity: 0.9;
+    transform: translateX(7.5%) translateY(-7.5%);
   }
 `;
 
 const AddButton = styled.button`
+  color: #fff;
   border: none;
-  background-color: #8ca1a5;
-  font-weight: 600;
-  border-radius: 10px;
-  width: 4em;
-  height: 2em;
-  &:active {
-    transform: scale(1.5);
-  }
-  &.true {
-    opacity: 0.4;
-  }
-  &:hover {
-    background-color: #316b83;
+  background: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+
+  &:disabled {
+    color: lightgray;
+    cursor: not-allowed;
+    transform: none;
   }
 `;
 
-const Price = styled.p`
-  font-weight: 700;
+const ItemName = styled.p`
+  color: #fff;
+  width: 70%;
+  text-align: center;
+  line-height: 1.2;
+  font-size: 1.2rem;
+  margin-bottom: 2.2rem;
+`;
+
+const Price = styled.h3`
+  color: #fff;
+  font-size: 1.8rem;
+  margin-bottom: 3rem;
 `;

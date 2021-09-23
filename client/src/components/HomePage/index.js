@@ -1,77 +1,109 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+import FilterBar from "./FilterBar/index";
+import AllItems from "./AllItems";
 import CircularLoading from "../CircularLoading";
-import SingleItem from "./SingleItem";
 
 /// responsive page needed
 
 const HomePage = ({ setIsCartOpen, addCartItem }) => {
   const [allProduct, setAllProduct] = useState([]);
+  const [filteredProduct, setFilteredProduct] = useState([]);
+  const [allCompany, setAllCompany] = useState([]);
   const [Loaded, setLoaded] = useState(false);
 
-  ///get will change for singular "item"
+  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedBrand, setSelectedBrand] = useState();
+  const [selectedItem, setSelectedItem] = useState([]);
+
+  // Generate URI QUERIS by filter slections
+  const filteredUri = () => {
+    if (selectedCategory && selectedBrand) {
+      return `/api/item?category=${selectedCategory}&company=${selectedBrand.id}`;
+    } else if (selectedCategory) {
+      return `/api/item?category=${selectedCategory}`;
+    } else if (selectedBrand) {
+      return `/api/item?company=${selectedBrand.id}`;
+    } else {
+      return `/api/item`;
+    }
+  };
   useEffect(() => {
-    fetch("/api/item/")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllProduct(data);
-        setLoaded(true);
-        // console.log(data.data);
-      });
+    const fetchData = async () => {
+      // fetch every item from database
+      await fetch("/api/item")
+        .then((res) => res.json())
+        .then((data) => {
+          setAllProduct(data.data);
+          // console.log(data.data);
+        });
+
+      // fetch every company from database
+      await fetch("/api/company")
+        .then((res) => res.json())
+        .then((data) => {
+          setAllCompany(data.data);
+          setLoaded(true);
+        });
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    // fetch filtered items
+    fetch(filteredUri())
+      .then((res) => res.json())
+      .then((data) => {
+        setFilteredProduct(data.data);
+        setLoaded(true);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory, selectedBrand]);
+
+  // cart added item store in local storage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(selectedItem));
+  }, [selectedItem]);
+
   return (
-    <Main id="homepage">
-      <button onClick={() => setIsCartOpen(true)}>Open Cart</button>
-      <TextWrapper>
-        <Paragraph>Check out all our ...stuff</Paragraph>
-      </TextWrapper>
-      {Loaded ? (
-        <Wrapper>
-          {allProduct.data.map((item, i) => {
-            return <SingleItem key={i} item={item} i={i} addCartItem={addCartItem} />;
-          })}
-        </Wrapper>
-      ) : (
-        <>
-          <Center>
-            <CircularLoading></CircularLoading>
-          </Center>
-        </>
-      )}
-    </Main>
+    <Wrapper>
+      <ItemWrapper>
+        {Loaded ? (
+          <>
+            <FilterBar
+              allProduct={allProduct}
+              allCompany={allCompany}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              selectedBrand={selectedBrand}
+              setSelectedBrand={setSelectedBrand}
+            />
+            <AllItems
+              setIsCartOpen={setIsCartOpen}
+              filteredProduct={filteredProduct}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+            />
+          </>
+        ) : (
+          <CircularLoading />
+        )}
+      </ItemWrapper>
+    </Wrapper>
   );
 };
 
-export default HomePage;
-
-const Main = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
-`;
-
-const Paragraph = styled.p`
-  /* color: $; */
-  font-weight: 600;
-`;
-
-const TextWrapper = styled.div``;
-
-const Center = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const Wrapper = styled.div`
+  background: linear-gradient(90deg, #fff 50%, #f3f3f3 50%);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  flex-basis: 1500px;
+`;
+
+const ItemWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px 0;

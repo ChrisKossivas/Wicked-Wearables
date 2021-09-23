@@ -1,13 +1,13 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-// import { FiLoader } from "react-icons/fi";
+import { FiLoader } from "react-icons/fi";
 
 // REMOVE COMMENTS AFTER!!!
 
 export default function CircularLoading() {
   return (
     <Wrapper>
-      {/* <Spin /> */}
+      <Spin />
     </Wrapper>
   );
 }
@@ -27,8 +27,8 @@ const animation = keyframes`
   }
 `;
 
-// const Spin = styled(FiLoader)`
-//   animation: ${animation} 1.5s linear infinite;
-//   color: #316b83;
-//   font-size: 50px;
-// `;
+const Spin = styled(FiLoader)`
+  animation: ${animation} 1.5s linear infinite;
+  color: #316b83;
+  font-size: 50px;
+`;
