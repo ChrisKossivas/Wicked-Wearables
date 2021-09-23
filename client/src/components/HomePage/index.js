@@ -5,7 +5,7 @@ import SingleItem from "./SingleItem";
 
 /// responsive page needed
 
-const HomePage = ({ setIsCartOpen }) => {
+const HomePage = ({ setIsCartOpen, addCartItem }) => {
   const [allProduct, setAllProduct] = useState([]);
   const [Loaded, setLoaded] = useState(false);
 
@@ -29,7 +29,7 @@ const HomePage = ({ setIsCartOpen }) => {
       {Loaded ? (
         <Wrapper>
           {allProduct.data.map((item, i) => {
-            return <SingleItem key={i} item={item} i={i} />;
+            return <SingleItem key={i} item={item} i={i} addCartItem={addCartItem} />;
           })}
         </Wrapper>
       ) : (
