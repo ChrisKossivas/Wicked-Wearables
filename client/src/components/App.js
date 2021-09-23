@@ -7,8 +7,9 @@ import Header from "./Header";
 import GlobalStyles from "./GlobalStyles";
 import CartModal from "./Cart/CartModal";
 import ItemDescription from "./ItemDetails/ItemDescription";
-import Wishlist from "./Cart/Wishlist";
 import ErrorPage from "./ErrorPage";
+import CheckoutPage from "./CheckoutPage";
+import Wishlist from "./Cart/Wishlist";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(true);
@@ -61,7 +62,12 @@ function App() {
           <Route exact path="/wishlist">
             <Wishlist></Wishlist>
           </Route>
-          <Route exact path="/error"></Route>
+          <Route exact path="/error">
+            <ErrorPage></ErrorPage>
+          </Route>
+          <Route exact path="/checkout">
+            <CheckoutPage></CheckoutPage>
+          </Route>
         </Switch>
         {isCartOpen && (
           <CartModal setIsCartOpen={setIsCartOpen} cartItems={cartItems} />
