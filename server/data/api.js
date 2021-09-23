@@ -17,19 +17,43 @@ const findItem = (itemId) => {
   return result === undefined ? null : result;
 };
 
+// filter Item by category
+const filterByCategory = (category) => {
+  const result = items.filter((item) =>
+    item.category.toLowerCase().includes(category.toLowerCase())
+  );
+  return result === undefined ? null : result;
+};
+
+// filter Item by company id
+const filterByCompany = (company) => {
+  const result = items.filter((item) => item.companyId === parseInt(company));
+  return result === undefined ? null : result;
+};
+
+// filter Item by search
+const filterBySearch = (search) => {
+  const result = items.filter((item) =>
+    item.name.toLowerCase().match(search.toLowerCase())
+  );
+  return result === undefined ? null : result;
+};
+
 // Add item to shopping cart
-const cartAdd = (item, itemId) => {
+const cartAdd = (item, itemId, quantity) => {
   // check if item id already exists in shopping cart
   for (let i = 0; i < cart.length; i++) {
-    console.log(cart[i]._id);
+    // console.log(cart[i]._id);
     if (cart[i]._id === itemId) {
       return "Already In Cart";
     }
   }
 
   // check if item is in stock
-  if (item.numInStock > 0) {
-    item.numInStock -= 1;
+  if (item.numInStock > 0 && item._id === Number(itemId)) {
+    if (quantity !== undefined) {
+      item.numInStock -= quantity;
+    }
     cart.push(item);
   }
   return item.numInStock <= 0 ? null : cart;
@@ -56,4 +80,12 @@ const wishListAdd = (item, itemId) => {
   return wishList;
 };
 
-module.exports = { cartAdd, findItem, findCompany, wishListAdd };
+module.exports = {
+  cartAdd,
+  findItem,
+  findCompany,
+  wishListAdd,
+  filterByCategory,
+  filterByCompany,
+  filterBySearch,
+};
