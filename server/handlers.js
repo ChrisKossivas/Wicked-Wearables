@@ -14,6 +14,7 @@ const {
   filterByCategory,
   filterByCompany,
   filterBySearch,
+  cartDelete,
 } = require("./data/api");
 
 // Function that will return all items in random order
@@ -253,6 +254,15 @@ const getCompanies = async (req, res) => {
   }
 };
 
+// Function for deleting cart item
+const deleteCartItem = (req, res) => {
+  const { itemId } = req.params
+  
+
+  cartDelete(itemId)
+
+}
+
 module.exports = {
   getItems,
   getItemById,
@@ -260,4 +270,5 @@ module.exports = {
   getCompanyById,
   addToWishList,
   getCompanies,
+  deleteCartItem,
 };
