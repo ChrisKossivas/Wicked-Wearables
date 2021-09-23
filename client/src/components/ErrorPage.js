@@ -7,8 +7,8 @@ import cat from "./404_Cat.jpeg";
 export default function ErrorPage() {
   return (
     <Wrapper>
-      <h1>ERROR 404</h1>
-      <h4>Page not found</h4>
+      <h1>Sorry!</h1>
+      <h3>This is not what you are looking for.</h3>
       <Img src={cat} alt="cat"></Img>
       <p>
         <HomeLink to="/">Home</HomeLink>
@@ -18,7 +18,7 @@ export default function ErrorPage() {
 }
 
 const HomeLink = styled(Link)`
-  padding: 5px 15px;
+  padding: 10px 20px;
   top: 100px;
   margin-top: 50px;
   font-size: 1rem;
@@ -32,9 +32,9 @@ const HomeLink = styled(Link)`
 `;
 
 const Img = styled.img`
-  height: auto;
-  height: auto;
+  height: 50%;
   border-radius: 50px;
+  margin-top: 2rem;
 `;
 
 const Wrapper = styled.div`
@@ -44,4 +44,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  h3 {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+  }
 `;

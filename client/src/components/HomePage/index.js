@@ -7,7 +7,7 @@ import CircularLoading from "../CircularLoading";
 
 /// responsive page needed
 
-const HomePage = ({ setIsCartOpen, addCartItem }) => {
+const HomePage = ({ setIsCartOpen, addItemToCart }) => {
   const [allProduct, setAllProduct] = useState([]);
   const [filteredProduct, setFilteredProduct] = useState([]);
   const [allCompany, setAllCompany] = useState([]);
@@ -62,11 +62,6 @@ const HomePage = ({ setIsCartOpen, addCartItem }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory, selectedBrand]);
 
-  // cart added item store in local storage
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(selectedItem));
-  }, [selectedItem]);
-
   return (
     <Wrapper>
       <ItemWrapper>
@@ -85,6 +80,7 @@ const HomePage = ({ setIsCartOpen, addCartItem }) => {
               filteredProduct={filteredProduct}
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
+              addItemToCart={addItemToCart}
             />
           </>
         ) : (
@@ -100,12 +96,14 @@ const Wrapper = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
-  flex-basis: 1500px;
+  /* flex-basis: 1500px; */
 `;
 
 const ItemWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  padding: 20px 0;
-  flex-wrap: wrap;
+  /* justify-content: center; */
+  /* padding: 20px 0;
+  flex-wrap: wrap; */
 `;
+
+export default HomePage;
