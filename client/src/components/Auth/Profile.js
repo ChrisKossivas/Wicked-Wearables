@@ -17,7 +17,8 @@ const Profile = () => {
     isAuthenticated && (
       <div>
         <UserAvatar src={user.picture} alt={user.name} />
-        <h2>{user.name}</h2>
+        <div></div>
+        <ProfileText>{user.name}</ProfileText>
       </div>
     )
   );
@@ -25,6 +26,10 @@ const Profile = () => {
 
 const UserAvatar = styled.img`
   border-radius: 50%;
+`;
+const ProfileText = styled.h2`
+  color: white;
+  float: left;
 `;
 
 export default Profile;

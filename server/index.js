@@ -11,6 +11,7 @@ const {
   getCompanyById, 
   addToWishList, 
   getCompanies,
+  deleteCartItem,
 } = require("./handlers");
 
 const PORT = 4000;
@@ -42,7 +43,9 @@ express()
 
   // POST items into cart. Needs: id of item as JSON Body
   .post("/api/item", addToCart)
-
+  // DELETE which will remove selected item from cart
+  .delete("/api/item/:itemId", deleteCartItem)
+  
   // GET company by id
   .get("/api/company", getCompanies)
   .get("/api/company/:companyId", getCompanyById)
