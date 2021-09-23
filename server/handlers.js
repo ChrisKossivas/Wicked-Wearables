@@ -6,89 +6,110 @@ const companies = JSON.parse(fileSytem.readFileSync("./data/companies.json"));
 // Don't forget to comment//
 // ***********************//
 
-const { cartAdd, findItem, findCompany, wishListAdd } = require("./data/api");
+const {
+  cartAdd,
+  findItem,
+  findCompany,
+  wishListAdd,
+  filterByCategory,
+  filterByCompany,
+  filterBySearch,
+} = require("./data/api");
 
 // Function that will return all items in random order
 // As well, it has an optional filter based on req.query that is sent. It will return filtered items in order
+// Filters: category, company, search(by name)
 const getItems = async (req, res) => {
   try {
     const { category, company, search } = req.query;
 
-    console.log(search)
-
     // return filtered data based on which category was sent as a req.query or which companyId was sent as a req.query
-    if (category !== undefined) {
+    if (category !== undefined && company === undefined) {
       // return category filter from req.query
-      const resultQuery = await items.filter((item) =>
-        item.category.toLowerCase().includes(category.toLowerCase())
-      );
+      const resultQuery = await filterByCategory(category);
 
       if (resultQuery.length === 0) {
-        res
-          .status(400)
-          .json({
-            status: 400,
-            message: "Category: " + `${category}` + " does not exist",
-          });
+        res.status(400).json({
+          status: 400,
+          message: "Category: " + `${category}` + " does not exist",
+        });
         return;
       }
 
-      res
-        .status(200)
-        .json({
-          status: 200,
-          data: resultQuery,
-          message: "Filterd by category: " + `${category}`,
-        });
+      res.status(200).json({
+        status: 200,
+        data: resultQuery,
+        message: "Filterd by category: " + `${category}`,
+      });
       return;
-    } else if (company !== undefined) {
+    } else if (company !== undefined && category === undefined) {
       // return company filter from req.query
-      const companyQuery = await items.filter(
-        (item) => item.companyId === parseInt(company)
-      );
+      const companyQuery = await filterByCompany(company);
 
       if (companyQuery.length === 0) {
-        res
-          .status(400)
-          .json({
-            status: 400,
-            message: "Company: " + `${company}` + " does not exist",
-          });
+        res.status(400).json({
+          status: 400,
+          message: "Company: " + `${company}` + " does not exist",
+        });
         return;
       }
 
-      res
-        .status(200)
-        .json({
-          status: 200,
-          data: companyQuery,
-          message: "Filterd by Brand: " + `${company}`,
-        });
+      res.status(200).json({
+        status: 200,
+        data: companyQuery,
+        message: "Filterd by Brand: " + `${company}`,
+      });
       return;
-    }
-    else if (search !== undefined) {
-      const searchQuery = await items.filter((item) => item.name.toLowerCase().match(search.toLowerCase()))
-      console.log(searchQuery)
+    } else if (search !== undefined) {
+      // return search filter from req.query
+      const searchQuery = await filterBySearch(search);
 
       if (searchQuery.length === 0) {
-        res
-        .status(400)
-        .json({
+        res.status(400).json({
           status: 400,
           message: "No Search Results For: " + `${search}`,
         });
-      return;
+        return;
       }
-      res
-      .status(200)
-      .json({
+      res.status(200).json({
         status: 200,
         data: searchQuery,
         message: "Search Results For: " + `${search}`,
       });
+      return;
+    } else if (category !== undefined && company !== undefined) {
+      // return categoy and company filter from req.query
+      const categoryQuery = await filterByCategory(category);
+
+      const resultQuery = await categoryQuery.filter(
+        (itemCategory) => itemCategory.companyId === parseInt(company)
+      );
+
+      if (resultQuery.length === 0) {
+        res.status(400).json({
+          status: 400,
+          message:
+            "No Search Results For category: " +
+            `${category},` +
+            " and company: " +
+            `${company}`,
+        });
+        return;
+      }
+
+      res.status(200).json({
+        status: 200,
+        data: resultQuery,
+        message:
+          "Search Results For category: " +
+          `${category},` +
+          " and company: " +
+          `${company}!`,
+      });
+      return;
     }
 
-    // return all items (no filter)
+    // return all items (with no filter and randomized)
     const result = await items.sort(() => 0.5 - Math.random());
 
     if (result.length <= 0) {
@@ -126,19 +147,20 @@ const getItemById = async (req, res) => {
   }
 };
 
-// Function for adding an item to cart. Needs: id of item as JSON Body
+// Function for adding an item to cart.
+// Needs: "id" of item as JSON Body and optional "quantity" as JSON Body
 const addToCart = (req, res) => {
-  // get _id from JSON body
-  const { itemId } = req.body;
+  // get itemId from JSON body
+  const { itemId, quantity } = req.body;
 
-  // findItem by _id
+  // findItem by itemId
   let item = findItem(itemId);
   if (item === null) {
     res.status(400).json({ status: 400, message: "Single Item is not found" });
     return;
   }
 
-  let addCartItem = cartAdd(item, itemId);
+  let addCartItem = cartAdd(item, itemId, quantity);
 
   // Check if Item in stock
   if (addCartItem === null) {
@@ -155,7 +177,12 @@ const addToCart = (req, res) => {
   // Return cart array of object items if it passes checks above
   return res
     .status(200)
-    .json({ status: 200, cart: addCartItem, message: "Cart Items!" });
+    .json({
+      status: 200,
+      cart: addCartItem,
+      CartCount: addCartItem.length,
+      message: "Cart Items!",
+    });
 };
 
 // Function for returning a company object by id
@@ -175,12 +202,10 @@ const getCompanyById = async (req, res) => {
       .status(200)
       .json({ status: 200, company: result, message: "Company details!" });
   } catch (err) {
-    res
-      .status(500)
-      .json({
-        status: 500,
-        message: "Error occured with Company Details request",
-      });
+    res.status(500).json({
+      status: 500,
+      message: "Error occured with Company Details request",
+    });
   }
 };
 
@@ -201,34 +226,32 @@ const addToWishList = (req, res) => {
 
   return res
     .status(200)
-    .json({ status: 200, wishList: wishList, wishListCount: wishList.length, message: "Wish List Items!" });
+    .json({
+      status: 200,
+      wishList: wishList,
+      wishListCount: wishList.length,
+      message: "Wish List Items!",
+    });
 };
-
 
 // Function for returning all company objects
 
 const getCompanies = async (req, res) => {
-
   try {
     if (companies.length === 0) {
       res.status(400).json({ status: 400, message: "Companies Not Found" });
       return;
     }
-    res.status(200).json({ status: 200, data: companies, message: "All Companies!" });
-
-  }
-  catch (err) {
     res
-    .status(500)
-    .json({
+      .status(200)
+      .json({ status: 200, data: companies, message: "All Companies!" });
+  } catch (err) {
+    res.status(500).json({
       status: 500,
       message: "Error occured with Companies request",
     });
-
   }
-
-
-}
+};
 
 module.exports = {
   getItems,
