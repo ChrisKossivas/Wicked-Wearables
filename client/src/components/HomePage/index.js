@@ -38,7 +38,6 @@ const HomePage = ({ setIsCartOpen, addItemToCart, addItemToWishlist }) => {
         .then((res) => res.json())
         .then((data) => {
           setAllProduct(data.data);
-          // console.log(data.data);
         });
 
       // fetch every company from database
@@ -103,39 +102,9 @@ const Wrapper = styled.div`
   width: 100vw;
   display: flex;
   justify-content: center;
-  /* flex-basis: 1500px; */
 `;
 
 const ItemWrapper = styled.div`
   display: flex;
-  /* justify-content: center; */
-  /* padding: 20px 0;
-  flex-wrap: wrap; */
 
 `;
-
-//For Searchbar functionality :
-// const SearchPage = (productList) => {
-
-//   const [input, setInput, productList] = useState('');
-
-// const fetchData = async () => {
-//     return await fetch()
-//       .then(response => response.json())
-//       .then(data => {
-
-//          productList(data)
-//        });}
-
-// 	useEffect( () => {fetchData()},[]);
-// return (
-//     <>
-//       <h1>What we offer</h1>
-//       <SearchBar
-//        input={input}
-//        onChange={updateInput}
-//       />
-//       <productList productList={productList}/>
-//     </>
-//    );
-// }

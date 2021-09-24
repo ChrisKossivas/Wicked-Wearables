@@ -66,7 +66,6 @@ const MainPage = styled.div`
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
   display: grid;
   justify-content: center;
-  min-height: 100vh;
 `;
 
 const AllWishItems = styled.div`

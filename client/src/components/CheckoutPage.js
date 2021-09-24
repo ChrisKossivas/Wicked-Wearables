@@ -168,7 +168,7 @@ let history = useHistory()
             <div>
               <H2>Order summary</H2>
               {cartData.map((lineItem) => (
-                <Footer>
+                <Footer key = {lineItem._id}>
                   <div>
                     <Item>{lineItem.name}</Item>
                     <Item>Category: {lineItem.category}</Item>

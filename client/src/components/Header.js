@@ -69,8 +69,6 @@ const HomeTitle = styled.h1`
   &:hover {
     transform: rotate(-5deg) scale(1.5);
     color: #ae45ac;
-    /* border: solid #ab83c9; */
-    /* border-radius: 30%; */
   }
 `;
 const CartTitle = styled.button`
