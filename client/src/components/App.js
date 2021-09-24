@@ -48,6 +48,24 @@ function App() {
         } 
       });
   };
+  const addItemToWishlist = (_id) => {
+    const requestAddWishlist = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ itemId: _id }),
+    };
+    fetch("/api/item/wishlist", requestAddWishlist)
+      .then((res) => res.json())
+      .then((data) => {
+        const { message, wishList } = data;
+        if (message === "Wish List Items!") {
+          localStorage.setItem("Wishlist", JSON.stringify(wishList));
+          // setCartStatus("idle");
+        } else if (message === "Already In Wishlist") {
+          return;
+        }
+      });
+  };
 
   //console.log(cartItems)
   return (
@@ -58,6 +76,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <HomePage
+              addItemToWishlist={addItemToWishlist}
               setIsCartOpen={setIsCartOpen}
               // addCartItem={addCartItem}
               addItemToCart={addItemToCart}
@@ -65,13 +84,16 @@ function App() {
           </Route>
           <Route exact path="/cart"></Route>
           <Route exact path="/itemDetail/:itemId">
-            <ItemDetails addItemToCart={addItemToCart} />
+            <ItemDetails
+              addItemToWishlist={addItemToWishlist}
+              addItemToCart={addItemToCart}
+            />
           </Route>
           <Route exact path="/error">
             <ErrorPage />
           </Route>
           <Route exact path="/wishlist">
-            <Wishlist></Wishlist>
+            <Wishlist addItemToCart={addItemToCart} />
           </Route>
           <Route exact path="/error">
             <ErrorPage></ErrorPage>
