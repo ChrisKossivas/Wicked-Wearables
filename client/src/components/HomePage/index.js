@@ -4,8 +4,7 @@ import styled from "styled-components";
 import FilterBar from "./FilterBar/index";
 import AllItems from "./AllItems";
 import CircularLoading from "../CircularLoading";
-//import SearchBar from '../SearchBar';
-
+// import SearchBar from '../SearchBar';
 
 
 /// responsive page needed
@@ -132,12 +131,11 @@ const ItemWrapper = styled.div`
 // return (
 //     <>
 //       <h1>What we offer</h1>
-//       <SearchBar 
-//        input={input} 
+//       <SearchBar
+//        input={input}
 //        onChange={updateInput}
 //       />
 //       <productList productList={productList}/>
 //     </>
 //    );
 // }
-
