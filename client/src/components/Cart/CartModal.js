@@ -52,8 +52,17 @@ const Cart = ({ fetchCartRequest, setIsCartOpen, cartItems }) => {
 };
 
 const Container = styled.div`
+  overflow: auto;
+  box-shadow: 1px 2px 2px 0px blueviolet;
   background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
   position: absolute;
+  text-align: center;
+  border-radius: 5px;
+  max-width: 100%;
+  max-height: 100%;
   top: 80px;
   right: 0;
   height: 100vh;
