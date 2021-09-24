@@ -39,14 +39,14 @@ const SingleItem = ({
   };
 
   return (
-    <Item
-      key={idx}
-      onClick={() => {
-        history.push(`/itemDetail/${item._id}`);
-        window.scrollTo(0, 0);
-      }}
-    >
-      <ImgWrapper>
+    <Item>
+      <ImgWrapper
+        key={idx}
+        onClick={() => {
+          history.push(`/itemDetail/${item._id}`);
+          window.scrollTo(0, 0);
+        }}
+      >
         <Img id="img" src={item.imageSrc} alt="Item picture" loading="lazy" />
         <ItemDetails>
           <ItemName>{item.name}</ItemName>
