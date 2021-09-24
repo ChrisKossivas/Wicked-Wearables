@@ -3,6 +3,8 @@ import styled from "styled-components";
 import cat from "./404_Cat.jpeg";
 
 export default function CheckoutPage() {
+  const cartData = JSON.parse(localStorage.getItem("newCart"));
+  // console.log(cartData);
   return (
     <Wrapper>
       <CustomerInfoWrapper>
@@ -141,19 +143,19 @@ export default function CheckoutPage() {
         <>
           <div>
             <H2>Order summary</H2>
-            {/* {cart.line_items.map((lineItem) => ( */}
-            <Footer>
-              <div>
-                <Item>CaTmin Vivofit Fitness Bracelet</Item>
-                <Item>garmin</Item>
-                <Item>total: 100$</Item>
-                <Item>Qty: 3</Item>
-              </div>
-              <p>
-                <Img src={cat} alt="image" />
-              </p>
-            </Footer>
-            {/* ))} */}
+            {cartData.map((lineItem) => (
+              <Footer>
+                <div>
+                  <Item>{lineItem.name}</Item>
+                  <Item>Category: {lineItem.category}</Item>
+                  {/* <Item>Body location: {lineItem.body_location}</Item> */}
+                  <Item>Price: {lineItem.price}</Item>
+                </div>
+                <p>
+                  <Img src={lineItem.imageSrc} alt="image" />
+                </p>
+              </Footer>
+            ))}
             <div></div>
           </div>
         </>
@@ -164,6 +166,9 @@ export default function CheckoutPage() {
 
 const Footer = styled.div`
   display: flex;
+  /* background-color: var(--color-pink); */
+  border-radius: 10px;
+  border-bottom: 5px solid var(--color-darkTurq);
 `;
 
 const Wrapper = styled.div`
@@ -209,19 +214,38 @@ const H2 = styled.h3`
   font-family: "Raleway", sans-serif;
 `;
 const Button = styled.button`
-  background-color: var(--color-darkTurq);
+  /* background-color: var(--color-darkTurq);
   border-radius: 10px;
-  margin-top: 25px;
+  font-size: 20px; */
   font-family: "Raleway", sans-serif;
-  font-size: 20px;
+  /* width: 400px; */
+  margin-top: 25px;
+  margin-bottom: 25px;
+  float: right;
+  background: var(--color-paleGreen);
+  color: white;
+  border-radius: 4px;
+  border: 0;
+  &:hover {
+    /* transform: rotate(5deg) scale(1.1); */
+    background: #fabf7c;
+    /* border: solid #ae45ac; */
+  }
 `;
 
 const Item = styled.p`
   padding-left: 50px;
+  padding-top: 10px;
+  font-size: 18px;
+  font-family: "Raleway", sans-serif;
+  max-width: 300px;
 `;
 
 const Img = styled.img`
-  width: 200px;
-  height: 80px;
-  padding-left: 50px;
+  transition: transform 0.4s ease-in;
+  &:hover {
+    opacity: 0.9;
+    transform: translateX(10%) translateY(0%);
+  }
+  /* padding-left: 50px; */
 `;

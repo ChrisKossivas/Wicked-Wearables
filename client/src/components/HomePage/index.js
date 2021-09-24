@@ -107,5 +107,3 @@ const ItemWrapper = styled.div`
   /* padding: 20px 0;
   flex-wrap: wrap; */
 `;
-
-export default HomePage;
