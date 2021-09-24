@@ -59,6 +59,7 @@ const MainPage = styled.div`
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
   display: grid;
   justify-content: center;
+  min-height: 100vh;
 `;
 
 const AllWishItems = styled.div`
@@ -80,10 +81,11 @@ const WishlistTitle = styled.h1``;
 const BottomImg = styled.footer`
   min-height: 13vh;
 `;
+
 const Wrapper = styled.div``;
 
 const ItemName = styled.p`
-  color: #fff;
+  color: #316b83;
   width: 70%;
   text-align: center;
   line-height: 1.2;
@@ -92,7 +94,7 @@ const ItemName = styled.p`
 `;
 
 const Price = styled.h3`
-  color: #fff;
+  color: #316b83;
   font-size: 1.8rem;
   margin-bottom: 3rem;
 `;

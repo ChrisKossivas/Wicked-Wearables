@@ -101,6 +101,7 @@ const WishlistButton = styled.button`
     transform: rotate(5deg) scale(1.1);
     background: #fabf7c;
     border: solid #ae45ac;
+    color: #316b83;
   }
 `;
 
