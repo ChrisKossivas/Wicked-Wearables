@@ -14,12 +14,12 @@ const Wishlist = () => {
   }, []);
 
   return (
-    <div>
+    <Container>
       {wishlistState ? (
         <Wrapper>
           {wishlistState.map((wishlistItem) => {
             return (
-              <MainPage>
+              <MainPage key = {wishlistItem._id}>
                 <AllWishItems>
                   <ImgWrapper>
                     <Img
@@ -48,11 +48,18 @@ const Wishlist = () => {
         </MainPage>
       )}
       <BottomImg style={{ backgroundImage: `url(${Footer})` }} />
-    </div>
+    </Container>
   );
 };
 
 export default Wishlist;
+
+const Container = styled.div`
+
+
+
+
+`
 
 const MainPage = styled.div`
   background-color: #f1f1f1;

@@ -39,42 +39,6 @@ const filterBySearch = (search) => {
   return result === undefined ? null : result;
 };
 
-// Add item to shopping cart
-const cartAdd = (item, itemId, quantity) => {
-  // check if item id already exists in shopping cart
-  for (let i = 0; i < cart.length; i++) {
-    // console.log(cart[i]._id);
-    if (cart[i]._id === itemId) {
-      return "Already In Cart";
-    }
-  }
-
-  // check if item is in stock
-  if (item.numInStock > 0 && item._id === Number(itemId)) {
-    if (quantity !== undefined) {
-      item.numInStock -= quantity;
-    }
-    cart.push(item);
-  }
-  return item.numInStock <= 0 ? null : cart;
-};
-
-
-// delete item from shopping cart
-const cartDelete = (itemId, item) => {
-
-  cart.find((cartItem, index) => {
-    if (cartItem._id === parseInt(itemId)) {
-      console.log(cartItem)
-      console.log(index)
-      cart.splice(index, 1)
-    }
-
-
-  })
-
-}
-
 // Find company by id
 const findCompany = (companyId) => {
   const result = companies.find(
@@ -83,26 +47,11 @@ const findCompany = (companyId) => {
   return result === undefined ? null : result;
 };
 
-// Add item to wish list
-const wishListAdd = (item, itemId) => {
-  for (let i = 0; i < wishList.length; i++) {
-    if (wishList[i]._id === itemId) {
-      return "Already In Wish List";
-    }
-  }
-
-  wishList.push(item);
-
-  return wishList;
-};
 
 module.exports = {
-  cartAdd,
   findItem,
   findCompany,
-  wishListAdd,
   filterByCategory,
   filterByCompany,
   filterBySearch,
-  cartDelete,
 };
