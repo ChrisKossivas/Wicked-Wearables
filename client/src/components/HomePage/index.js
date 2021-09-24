@@ -4,7 +4,9 @@ import styled from "styled-components";
 import FilterBar from "./FilterBar/index";
 import AllItems from "./AllItems";
 import CircularLoading from "../CircularLoading";
-// import SearchBar from "../SearchBar";
+//import SearchBar from '../SearchBar';
+
+
 
 /// responsive page needed
 
@@ -93,7 +95,9 @@ const HomePage = ({ setIsCartOpen, addItemToCart, addItemToWishlist }) => {
   );
 };
 
-export default HomePage;
+
+export default HomePage
+
 
 const Wrapper = styled.div`
   background: linear-gradient(90deg, #fff 50%, #f3f3f3 50%);
@@ -108,6 +112,7 @@ const ItemWrapper = styled.div`
   /* justify-content: center; */
   /* padding: 20px 0;
   flex-wrap: wrap; */
+
 `;
 
 //For Searchbar functionality :
@@ -136,4 +141,3 @@ const ItemWrapper = styled.div`
 //    );
 // }
 
-export default HomePage

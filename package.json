@@ -2,6 +2,5 @@
   "dependencies": {
     "@auth0/auth0-react": "^1.8.0",
     "morgan": "^1.10.0"
-    
   }
 }

@@ -10,6 +10,7 @@ import ItemDescription from "./ItemDetails/ItemDescription";
 import ErrorPage from "./ErrorPage";
 import CheckoutPage from "./CheckoutPage";
 import Wishlist from "./Cart/Wishlist";
+// import searchBar from "./Search/SearchBar";
 import ConfirmPage from "./ConfirmPage";
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
       <GlobalStyles />
       <Main>
         <Header setIsCartOpen={setIsCartOpen} />
+        
         <Switch>
           <Route exact path="/">
             <HomePage
@@ -130,6 +132,17 @@ function App() {
     </BrowserRouter>
   );
 }
+
+
+//render(){
+//  return(
+//    <div className="App">
+//    <searchBar placeholder="We got it all" handleChange={(qty) => console.log(qty.target.value)}/>
+//    </div>
+//  )
+//}
+
+
 // Comment to test
 export default App;
 
