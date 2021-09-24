@@ -10,17 +10,26 @@ import ItemDescription from "./ItemDetails/ItemDescription";
 import ErrorPage from "./ErrorPage";
 import CheckoutPage from "./CheckoutPage";
 import Wishlist from "./Cart/Wishlist";
+// import searchBar from "./Search/SearchBar";
+import ConfirmPage from "./ConfirmPage";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartStatus, setCartStatus] = useState(false);
+
+  // const [cartItems, setCartItems] = useState([]);
+
+  const [stopBtnClick, setStopBtnClick] = useState(false)
 
   // function addCartItem(item) {
   //   setCartItems([...cartItems, item]);
   // }
 
-  // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity 
+  // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity
   const addItemToCart = (_id, quantity) => {
+    // if (stopBtnClick) {
+    //   return;
+    // }
     const requestAddCart = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -31,23 +40,25 @@ function App() {
       .then((newCart) => {
         const { message, cart } = newCart;
         if (message === "Cart Items!") {
-          const oldCart = JSON.parse(localStorage.getItem('newCart')) || [];
-          console.log(oldCart)
-          console.log(cart._id)
+          const oldCart = JSON.parse(localStorage.getItem("newCart")) || [];
+
           for (let i = 0; i < oldCart.length; i++) {
-            console.log(oldCart[i]._id);
+            // console.log(oldCart[i]._id);
             if (oldCart[i]._id === cart._id) {
-              console.log('same!')
-              return
+              // console.log("same!");
+              return;
+
             }
           }
-          cart.numInStock -= quantity
-          oldCart.push(cart)
+          cart.numInStock -= quantity;
+          oldCart.push(cart);
           localStorage.setItem("newCart", JSON.stringify(oldCart));
-          // setCartStatus("idle");
-        } 
+          setCartStatus(!cartStatus);
       });
   };
+
+
+
   const addItemToWishlist = (_id) => {
     const requestAddWishlist = {
       method: "POST",
@@ -58,21 +69,25 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         const { message, wishList } = data;
-        if (message === "Wish List Items!") {
-          localStorage.setItem("Wishlist", JSON.stringify(wishList));
-          // setCartStatus("idle");
-        } else if (message === "Already In Wishlist") {
-          return;
+        if (message === "Wishlist Items!") {
+          const oldWishlist = JSON.parse(localStorage.getItem('Wishlist')) || [];
+          for (let i = 0; i < oldWishlist.length; i++) {
+            if (oldWishlist[i]._id === wishList._id) {
+              return
+            }
+          }
+          oldWishlist.push(wishList)
+          localStorage.setItem("Wishlist", JSON.stringify(oldWishlist));
         }
       });
   };
 
-  //console.log(cartItems)
   return (
     <BrowserRouter>
       <GlobalStyles />
       <Main>
         <Header setIsCartOpen={setIsCartOpen} />
+        
         <Switch>
           <Route exact path="/">
             <HomePage
@@ -87,6 +102,7 @@ function App() {
             <ItemDetails
               addItemToWishlist={addItemToWishlist}
               addItemToCart={addItemToCart}
+              setIsCartOpen={setIsCartOpen}
             />
           </Route>
           <Route exact path="/error">
@@ -101,14 +117,32 @@ function App() {
           <Route exact path="/checkout">
             <CheckoutPage></CheckoutPage>
           </Route>
+          <Route exact path="/confirm">
+            <ConfirmPage />
+          </Route>
         </Switch>
         {isCartOpen && (
-          <CartModal setIsCartOpen={setIsCartOpen} cartItems={cartItems} />
+          <CartModal
+            setIsCartOpen={setIsCartOpen}
+            cartStatus={cartStatus}
+            setCartStatus={setCartStatus}
+          />
         )}
       </Main>
     </BrowserRouter>
   );
 }
+
+
+//render(){
+//  return(
+//    <div className="App">
+//    <searchBar placeholder="We got it all" handleChange={(qty) => console.log(qty.target.value)}/>
+//    </div>
+//  )
+//}
+
+
 // Comment to test
 export default App;
 

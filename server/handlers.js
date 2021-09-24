@@ -7,14 +7,11 @@ const companies = JSON.parse(fileSytem.readFileSync("./data/companies.json"));
 // ***********************//
 
 const {
-  cartAdd,
   findItem,
   findCompany,
-  wishListAdd,
   filterByCategory,
   filterByCompany,
   filterBySearch,
-  cartDelete,
 } = require("./data/api");
 
 // Function that will return all items in random order
@@ -216,22 +213,25 @@ const addToWishList = (req, res) => {
   const { itemId } = req.body;
 
   let item = findItem(itemId);
-
-  let wishList = wishListAdd(item, itemId);
-  console.log(wishList);
-
-  if (wishList === "Already In Wish List") {
-    res.status(400).json({ status: 400, message: "Item already in Wish List" });
+  if (item === null) {
+    res.status(400).json({ status: 400, message: "Single Item is not found" });
     return;
   }
+  // let wishList = wishListAdd(item, itemId);
+  // console.log(wishList);
+
+  // if (wishList === "Already In Wish List") {
+  //   res.status(400).json({ status: 400, message: "Item already in Wish List" });
+  //   return;
+  // }
 
   return res
     .status(200)
     .json({
       status: 200,
-      wishList: wishList,
-      wishListCount: wishList.length,
-      message: "Wish List Items!",
+      wishList: item,
+      // wishListCount: wishList.length,
+      message: "Wishlist Items!",
     });
 };
 
