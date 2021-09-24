@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ItemDescription from "./ItemDescription";
 
+
 const ItemDetails = ({ addItemToCart }) => {
+  
   const { itemId } = useParams();
 
   const [selectedItem, setSelectedItem] = useState();
@@ -39,6 +41,7 @@ const ItemDetails = ({ addItemToCart }) => {
       />
       <Backdrop>
         <ItemDescription
+          addItemToCart={addItemToCart}
           selectedItem={selectedItem}
           selectedCompany={selectedCompany}
           addItemToCart={addItemToCart}

@@ -9,6 +9,8 @@ const ItemDescription = ({ selectedItem, selectedCompany, addItemToCart }) => {
   const [quantity, setQuantity] = useState(initialQty);
 
 
+  console.log(addItemToCart)
+
   // Function that will validate quantity number
   const validateQty = (num) => {
     return num <= 0 ? 1 : num > numInStock ? numInStock : setQuantity(num);
