@@ -1,5 +1,5 @@
 // Don't forget to comment
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { MdShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
@@ -9,10 +9,6 @@ const SingleItem = ({
   setIsCartOpen,
   item,
   idx,
-  addCartItem,
-  hideAddButton,
-  selectedItem,
-  setSelectedItem,
   addItemToCart,
   addItemToWishlist,
 }) => {
@@ -24,12 +20,8 @@ const SingleItem = ({
     setIsCartOpen(true);
 
     addItemToCart(id, 1);
-    setInterval(() => {
-      window.location.reload()
-      
-    }, 500);
   };
-  console.log("addItemtoWishlist", addItemToWishlist);
+
   return (
     <Item>
       <ImgWrapper
@@ -46,9 +38,6 @@ const SingleItem = ({
           <AddButton
             id="addBtn"
             disabled={item.numInStock <= 0 ? true : false}
-            // className={disabled}
-            // !hideAddButton &&<AddButton
-            // addCartItem(item);
             onClick={(ev) => {
               handleAddBtn(ev, item._id);
             }}

@@ -13,13 +13,15 @@ import Wishlist from "./Cart/Wishlist";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartStatus, setCartStatus] = useState(false);
+
+  // const [cartItems, setCartItems] = useState([]);
 
   // function addCartItem(item) {
   //   setCartItems([...cartItems, item]);
   // }
 
-  // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity 
+  // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity
   const addItemToCart = (_id, quantity) => {
     const requestAddCart = {
       method: "POST",
@@ -31,21 +33,20 @@ function App() {
       .then((newCart) => {
         const { message, cart } = newCart;
         if (message === "Cart Items!") {
-          const oldCart = JSON.parse(localStorage.getItem('newCart')) || [];
-          console.log(oldCart)
-          console.log(cart._id)
+          const oldCart = JSON.parse(localStorage.getItem("newCart")) || [];
+
           for (let i = 0; i < oldCart.length; i++) {
-            console.log(oldCart[i]._id);
+            // console.log(oldCart[i]._id);
             if (oldCart[i]._id === cart._id) {
-              console.log('same!')
-              return
+              // console.log("same!");
+              return;
             }
           }
-          cart.numInStock -= quantity
-          oldCart.push(cart)
+          cart.numInStock -= quantity;
+          oldCart.push(cart);
           localStorage.setItem("newCart", JSON.stringify(oldCart));
-          // setCartStatus("idle");
-        } 
+          setCartStatus(!cartStatus);
+        }
       });
   };
   const addItemToWishlist = (_id) => {
@@ -87,6 +88,7 @@ function App() {
             <ItemDetails
               addItemToWishlist={addItemToWishlist}
               addItemToCart={addItemToCart}
+              setIsCartOpen={setIsCartOpen}
             />
           </Route>
           <Route exact path="/error">
@@ -103,7 +105,11 @@ function App() {
           </Route>
         </Switch>
         {isCartOpen && (
-          <CartModal setIsCartOpen={setIsCartOpen} cartItems={cartItems} />
+          <CartModal
+            setIsCartOpen={setIsCartOpen}
+            cartStatus={cartStatus}
+            setCartStatus={setCartStatus}
+          />
         )}
       </Main>
     </BrowserRouter>
