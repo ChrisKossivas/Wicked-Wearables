@@ -161,27 +161,27 @@ const addToCart = (req, res) => {
     return;
   }
 
-  let addCartItem = cartAdd(item, itemId, quantity);
+  // let addCartItem = cartAdd(item, itemId, quantity);
 
-  // Check if Item in stock
-  if (addCartItem === null) {
-    res.status(400).json({ status: 400, message: "Item Out Of Stock" });
-    return;
-  }
+  // // Check if Item in stock
+  // if (addCartItem === null) {
+  //   res.status(400).json({ status: 400, message: "Item Out Of Stock" });
+  //   return;
+  // }
 
-  // Check if Item already in Cart
-  if (addCartItem === "Already In Cart") {
-    res.status(400).json({ status: 400, message: "Item Already In Cart" });
-    return;
-  }
+  // // Check if Item already in Cart
+  // if (addCartItem === "Already In Cart") {
+  //   res.status(400).json({ status: 400, message: "Item Already In Cart" });
+  //   return;
+  // }
 
   // Return cart array of object items if it passes checks above
   return res
     .status(200)
     .json({
       status: 200,
-      cart: addCartItem,
-      CartCount: addCartItem.length,
+      cart: item,
+      // CartCount: addCartItem.length,
       message: "Cart Items!",
     });
 };

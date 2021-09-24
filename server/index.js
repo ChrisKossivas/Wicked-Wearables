@@ -42,6 +42,7 @@ express()
   .get("/api/item/:itemId", getItemById)
 
   // POST items into cart. Needs: id of item as JSON Body
+  // Now works with localstorage
   .post("/api/item", addToCart)
   // DELETE which will remove selected item from cart
   .delete("/api/item/:itemId", deleteCartItem)

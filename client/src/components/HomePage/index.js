@@ -8,7 +8,7 @@ import SearchBar from '../SearchBar';
 
 /// responsive page needed
 
-const HomePage = ({ setIsCartOpen, addItemToCart }) => {
+const HomePage = ({ setIsCartOpen, addItemToCart, addItemToWishlist }) => {
   const [allProduct, setAllProduct] = useState([]);
   const [filteredProduct, setFilteredProduct] = useState([]);
   const [allCompany, setAllCompany] = useState([]);
@@ -82,6 +82,7 @@ const HomePage = ({ setIsCartOpen, addItemToCart }) => {
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
               addItemToCart={addItemToCart}
+              addItemToWishlist={addItemToWishlist}
             />
           </>
         ) : (
@@ -91,8 +92,6 @@ const HomePage = ({ setIsCartOpen, addItemToCart }) => {
     </Wrapper>
   );
 };
-
-export default HomePage;
 
 const Wrapper = styled.div`
   background: linear-gradient(90deg, #fff 50%, #f3f3f3 50%);
@@ -108,7 +107,6 @@ const ItemWrapper = styled.div`
   /* padding: 20px 0;
   flex-wrap: wrap; */
 `;
-
 
 //For Searchbar functionality :
 const SearchPage = (productList) => {
@@ -134,3 +132,4 @@ return (
     </>
    );
 }
+

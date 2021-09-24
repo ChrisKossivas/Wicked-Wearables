@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ItemDescription from "./ItemDescription";
 
-const ItemDetails = () => {
+
+const ItemDetails = ({ addItemToCart, addItemToWishlist }) => {
+
   const { itemId } = useParams();
 
   const [selectedItem, setSelectedItem] = useState();
   const [selectedCompany, setSelectedCompany] = useState();
 
-  console.log(selectedCompany);
   // let companyId = selectedItem ? selectedItem.companyId : null;
 
   useEffect(() => {
@@ -40,8 +41,11 @@ const ItemDetails = () => {
       />
       <Backdrop>
         <ItemDescription
+          addItemToWishlist={addItemToWishlist}
           selectedItem={selectedItem}
+          addItemToCart={addItemToCart}
           selectedCompany={selectedCompany}
+          addItemToCart={addItemToCart}
         />
       </Backdrop>
     </ItemPage>

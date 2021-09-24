@@ -23,33 +23,92 @@ const Cart = ({ fetchCartRequest, setIsCartOpen, cartItems }) => {
     history.push("/checkout")
   }
 
-  // ***needs state to check status of cart***
-  // const allCartItems = JSON.parse(localStorage.getItem('newCart'))
-
+  
+  // onClick for the remove item button. Will remove the cart(**localStorage**), item based on itemId
+  const removeItemFromCart = (itemId) => {
+    
+    const oldCart = JSON.parse(localStorage.getItem('newCart'))
+    
+    for (let i = 0; i < oldCart.length; i++) {
+      if (oldCart[i]._id === itemId) {
+        oldCart.splice(i, 1)
+        localStorage.setItem("newCart", JSON.stringify(oldCart));
+      }
+    }
+    
+    window.location.reload()
+  }
+  
+  const allCartItems = JSON.parse(localStorage.getItem('newCart'))
 
   return (
     <Container>
-      <button onClick={() => setIsCartOpen(false)}>X</button>
+      <CloseBtn onClick={() => setIsCartOpen(false)}>X</CloseBtn>
       {cartItems.map(cartItem => (<SingleItem item={cartItem} hideAddButton/>
         ))}
         <DisplayCart>
-          {/* {allCartItems.map((eachCartItem) => {
+          {localStorage.getItem('newCart') !== null ? (allCartItems.map((eachCartItem) => {
             // ***render data with styled components***
             const { name, price, body_location, category, imageSrc, _id} = eachCartItem
 
             return (
-              <div key={_id}>
-
-              </div>
+              <ItemCartDetails key={_id}>
+                <span>
+                <ItemImg src={imageSrc}/>
+                <Price>{price}</Price>
+                <ItemName>{name}</ItemName>
+                </span>
+                <RemoveItemBtn onClick={() => removeItemFromCart(_id)}>
+                Remove item
+                </RemoveItemBtn>
+              </ItemCartDetails>
             )
-          })} */}
-        </DisplayCart>
-          <CheckoutBtn onClick = {clickToCheckout}>
-            Checkout
-          </CheckoutBtn>
-    </Container>
+          })) : (
+            <>
+              
+            </>
+          )}
+      </DisplayCart>
+            <CheckoutBtn onClick = {clickToCheckout}>
+              Checkout
+            </CheckoutBtn>
+      </Container>
   );
 };
+
+const CloseBtn = styled.button`
+
+
+`
+
+const Price = styled.p`
+
+  font-size: 25px;
+
+`
+
+const ItemName = styled.p`
+
+  font-weight: bold;
+
+`
+
+
+const ItemImg = styled.img`
+
+border-radius: 15px;
+width:  170px;
+height: 170px;
+object-fit: cover;
+`
+
+const ItemCartDetails = styled.div`
+
+
+
+
+
+`
 
 const Container = styled.div`
   overflow: auto;
@@ -67,7 +126,7 @@ const Container = styled.div`
   right: 0;
   height: 100vh;
   width: 400px;
-`;
+;`
 
 const DisplayCart = styled.div`
 
@@ -78,9 +137,30 @@ const DisplayCart = styled.div`
 
 const CheckoutBtn = styled.button`
 
+background: var(--color-lightGrey);
+color: white;
+border-radius: 20px;
+box-shadow: 0px 0px 0px transparent;
+border: 0px solid transparent;
+text-shadow: 0px 0px 0px transparent;
+font-weight: bold;
+font-size: 25px;
+padding: 12px;
 
+`
 
+const RemoveItemBtn = styled.button`
+width: 280px;
+background: var(--color-darkTurq);
 
+color: white;
+border-radius: 20px;
+box-shadow: 0px 0px 0px transparent;
+border: 0px solid transparent;
+text-shadow: 0px 0px 0px transparent;
+font-weight: bold;
+font-size: 25px;
+margin-bottom: 35px;
 `
 
 export default Cart;
