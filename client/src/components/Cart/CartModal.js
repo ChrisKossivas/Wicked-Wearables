@@ -73,11 +73,13 @@ const Cart = ({ fetchCartRequest, setIsCartOpen, cartItems }) => {
               Checkout
             </CheckoutBtn>
       </Container>
+      
   );
 };
 
 const CloseBtn = styled.button`
-
+background-color: #316B83;
+border: none;
 
 `
 
@@ -97,23 +99,24 @@ const ItemName = styled.p`
 const ItemImg = styled.img`
 
 border-radius: 15px;
+
 width:  170px;
 height: 170px;
 object-fit: cover;
+padding-top: 1.5vh;
+padding-bottom: 1.5vh;
 `
 
+
 const ItemCartDetails = styled.div`
-
-
-
-
+padding: 2vh;
 
 `
 
 const Container = styled.div`
   overflow: auto;
-  box-shadow: 1px 2px 2px 0px blueviolet;
-  background-color: whitesmoke;
+  box-shadow: 8px 8px 8px 8px blueviolet;
+  background-color: ghostwhite;
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -126,6 +129,7 @@ const Container = styled.div`
   right: 0;
   height: 100vh;
   width: 400px;
+  padding: 30px;
 ;`
 
 const DisplayCart = styled.div`
