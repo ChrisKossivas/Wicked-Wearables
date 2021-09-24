@@ -10,7 +10,7 @@ const handleSort = (products, sort) => {
   switch (sort) {
     case "newest": {
       return products.sort((a, b) =>
-        parseInt(a.name) > parseInt(b.name) ? 1 : -1
+        parseInt(a._id) > parseInt(b._id) ? -1 : 1
       );
     }
     case "lowest": {

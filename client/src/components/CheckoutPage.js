@@ -1,14 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 import cat from "./404_Cat.jpeg";
+import { useHistory } from "react-router-dom";
 
 export default function CheckoutPage() {
   const cartData = JSON.parse(localStorage.getItem("newCart"));
-  // console.log(cartData);
+  
+let history = useHistory()
+  
+  // submit on Click will change page to /confirm and remove newCart key in localStorage
+  const onClickSubmit = () => {
+    localStorage.removeItem("newCart")
+    history.push("/confirm")
+
+  }
+
   return (
     <Wrapper>
       <CustomerInfoWrapper>
-        <Form>
+        <Form
+            onSubmit={(e) => {
+              onClickSubmit();
+              e.preventDefault();
+            }}
+        > 
           <H2>Customer information</H2>
 
           <Label htmlFor="firstName">First name</Label>
@@ -132,6 +147,7 @@ export default function CheckoutPage() {
           />
 
           <Button
+          type="submit"
           // onClick={this.handleCaptureCheckout}
           >
             Confirm order
