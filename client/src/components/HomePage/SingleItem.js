@@ -18,37 +18,27 @@ const SingleItem = ({
 }) => {
   const history = useHistory();
 
-  // const localStorage = localStorage.getItem("cart");
-
-  //   const addToCartFunc = (item, ev) => {
-  //     ev.stopPropagation();
-  //
-  //   };
-
-  //   let disabled = false;
-
-  //   if (item.numInStock <= 0) {
-  //
-  //     disabled = true;
-  //   }
-
   // Funtion that will be called when you press add button on item
   const handleAddBtn = (ev, id) => {
     ev.stopPropagation();
     setIsCartOpen(true);
 
     addItemToCart(id, 1);
+    setInterval(() => {
+      window.location.reload()
+      
+    }, 500);
   };
   console.log("addItemtoWishlist", addItemToWishlist);
   return (
-    <Item
-      key={idx}
-      onClick={() => {
-        history.push(`/itemDetail/${item._id}`);
-        window.scrollTo(0, 0);
-      }}
-    >
-      <ImgWrapper>
+    <Item>
+      <ImgWrapper
+        key={idx}
+        onClick={() => {
+          history.push(`/itemDetail/${item._id}`);
+          window.scrollTo(0, 0);
+        }}
+      >
         <Img id="img" src={item.imageSrc} alt="Item picture" loading="lazy" />
         <ItemDetails>
           <ItemName>{item.name}</ItemName>

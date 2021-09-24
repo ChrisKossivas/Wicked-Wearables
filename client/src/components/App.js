@@ -12,13 +12,14 @@ import CheckoutPage from "./CheckoutPage";
 import Wishlist from "./Cart/Wishlist";
 
 function App() {
-  const [isCartOpen, setIsCartOpen] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
   // function addCartItem(item) {
   //   setCartItems([...cartItems, item]);
   // }
 
+  // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity 
   const addItemToCart = (_id, quantity) => {
     const requestAddCart = {
       method: "POST",
@@ -30,11 +31,21 @@ function App() {
       .then((newCart) => {
         const { message, cart } = newCart;
         if (message === "Cart Items!") {
-          localStorage.setItem("newCart", JSON.stringify(cart));
+          const oldCart = JSON.parse(localStorage.getItem('newCart')) || [];
+          console.log(oldCart)
+          console.log(cart._id)
+          for (let i = 0; i < oldCart.length; i++) {
+            console.log(oldCart[i]._id);
+            if (oldCart[i]._id === cart._id) {
+              console.log('same!')
+              return
+            }
+          }
+          cart.numInStock -= quantity
+          oldCart.push(cart)
+          localStorage.setItem("newCart", JSON.stringify(oldCart));
           // setCartStatus("idle");
-        } else if (message === "Item Already In Cart") {
-          return;
-        }
+        } 
       });
   };
   const addItemToWishlist = (_id) => {

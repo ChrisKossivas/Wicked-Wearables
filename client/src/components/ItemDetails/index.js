@@ -4,12 +4,12 @@ import styled from "styled-components";
 import ItemDescription from "./ItemDescription";
 
 const ItemDetails = ({ addItemToCart, addItemToWishlist }) => {
+
   const { itemId } = useParams();
 
   const [selectedItem, setSelectedItem] = useState();
   const [selectedCompany, setSelectedCompany] = useState();
 
-  console.log(selectedCompany);
   // let companyId = selectedItem ? selectedItem.companyId : null;
 
   useEffect(() => {
@@ -42,8 +42,8 @@ const ItemDetails = ({ addItemToCart, addItemToWishlist }) => {
         <ItemDescription
           addItemToWishlist={addItemToWishlist}
           selectedItem={selectedItem}
-          addItemToCart={addItemToCart}
           selectedCompany={selectedCompany}
+          addItemToCart={addItemToCart}
         />
       </Backdrop>
     </ItemPage>

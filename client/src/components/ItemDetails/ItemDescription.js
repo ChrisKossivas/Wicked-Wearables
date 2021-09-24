@@ -14,6 +14,7 @@ const ItemDescription = ({
   const initialQty = numInStock <= 0 ? 0 : 1;
   const [quantity, setQuantity] = useState(initialQty);
 
+
   // Function that will validate quantity number
   const validateQty = (num) => {
     return num <= 0 ? 1 : num > numInStock ? numInStock : setQuantity(num);
