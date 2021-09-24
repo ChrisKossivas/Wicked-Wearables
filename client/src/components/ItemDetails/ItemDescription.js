@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { AiOutlineStar } from "react-icons/ai";
 
-const ItemDescription = ({ selectedItem, selectedCompany, addItemToCart }) => {
+const ItemDescription = ({
+  selectedItem,
+  selectedCompany,
+  addItemToCart,
+  addItemToWishlist,
+}) => {
   const { name, price, category, body_location, imageSrc, numInStock, _id } =
     selectedItem;
 
   const initialQty = numInStock <= 0 ? 0 : 1;
   const [quantity, setQuantity] = useState(initialQty);
-
 
   // Function that will validate quantity number
   const validateQty = (num) => {
@@ -26,7 +31,6 @@ const ItemDescription = ({ selectedItem, selectedCompany, addItemToCart }) => {
     validateQty(result);
   };
 
-  
   return (
     <Wrapper>
       <Image src={imageSrc} alt={name} />
@@ -54,8 +58,13 @@ const ItemDescription = ({ selectedItem, selectedCompany, addItemToCart }) => {
         {numInStock <= 0 ? (
           <CartBtn disabled>Out of Stock</CartBtn>
         ) : (
-          <CartBtn onClick={() => addItemToCart(_id, quantity)}>Add to Cart</CartBtn>
+          <CartBtn onClick={() => addItemToCart(_id, quantity)}>
+            Add to Cart
+          </CartBtn>
         )}
+        <WishBtn onClick={() => addItemToWishlist(_id)}>
+          <AiOutlineStar />
+        </WishBtn>
       </Detail>
     </Wrapper>
   );
@@ -160,6 +169,31 @@ const CartBtn = styled.button`
   border: none;
   border-radius: 15px;
   padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: transform 0.4s ease-in, background-color 0.4s ease-in;
+
+  &:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    &:not([disabled]) {
+      transform: scale(1.1);
+      background-color: var(--color-pink);
+    }
+  }
+`;
+
+const WishBtn = styled.button`
+  color: #fff;
+  background-color: var(--color-darkTurq);
+  font-family: inherit;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 15px;
+  padding: 0.75rem 1.5rem;
+  margin-left: 3px;
   cursor: pointer;
   transition: transform 0.4s ease-in, background-color 0.4s ease-in;
 

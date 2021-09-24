@@ -9,6 +9,7 @@ const AllItems = ({
   selectedItem,
   setSelectedItem,
   addItemToCart,
+  addItemToWishlist,
 }) => {
   const history = useHistory();
   // Page shows 12 items at once
@@ -45,6 +46,7 @@ const AllItems = ({
                   selectedItem={selectedItem}
                   setSelectedItem={setSelectedItem}
                   addItemToCart={addItemToCart}
+                  addItemToWishlist={addItemToWishlist}
                 />
               );
             })}

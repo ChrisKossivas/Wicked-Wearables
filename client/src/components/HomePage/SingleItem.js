@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { MdShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
+import { AiOutlineStar } from "react-icons/ai";
 
 const SingleItem = ({
   setIsCartOpen,
@@ -13,6 +14,7 @@ const SingleItem = ({
   selectedItem,
   setSelectedItem,
   addItemToCart,
+  addItemToWishlist,
 }) => {
   const history = useHistory();
 
@@ -37,7 +39,7 @@ const SingleItem = ({
 
     addItemToCart(id, 1);
   };
-
+  console.log("addItemtoWishlist", addItemToWishlist);
   return (
     <Item
       key={idx}
@@ -61,6 +63,9 @@ const SingleItem = ({
               handleAddBtn(ev, item._id);
             }}
           >
+            <WishButton onClick={() => addItemToWishlist(item._id)}>
+              <AiOutlineStar />
+            </WishButton>
             {item.numInStock > 0 ? (
               <MdShoppingCart />
             ) : (
@@ -131,6 +136,18 @@ const ItemDetails = styled.div`
 `;
 
 const AddButton = styled.button`
+  color: #fff;
+  border: none;
+  background: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  &:disabled {
+    color: lightgray;
+    cursor: not-allowed;
+    transform: none;
+  }
+`;
+const WishButton = styled.button`
   color: #fff;
   border: none;
   background: none;

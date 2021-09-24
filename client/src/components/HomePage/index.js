@@ -7,7 +7,7 @@ import CircularLoading from "../CircularLoading";
 
 /// responsive page needed
 
-const HomePage = ({ setIsCartOpen, addItemToCart }) => {
+const HomePage = ({ setIsCartOpen, addItemToCart, addItemToWishlist }) => {
   const [allProduct, setAllProduct] = useState([]);
   const [filteredProduct, setFilteredProduct] = useState([]);
   const [allCompany, setAllCompany] = useState([]);
@@ -81,6 +81,7 @@ const HomePage = ({ setIsCartOpen, addItemToCart }) => {
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
               addItemToCart={addItemToCart}
+              addItemToWishlist={addItemToWishlist}
             />
           </>
         ) : (
@@ -107,5 +108,3 @@ const ItemWrapper = styled.div`
   /* padding: 20px 0;
   flex-wrap: wrap; */
 `;
-
-export default HomePage;
