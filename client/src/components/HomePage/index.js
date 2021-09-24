@@ -4,7 +4,8 @@ import styled from "styled-components";
 import FilterBar from "./FilterBar/index";
 import AllItems from "./AllItems";
 import CircularLoading from "../CircularLoading";
-// import SearchBar from '../SearchBar';
+// import SearchBar from "../SearchBar";
+
 
 /// responsive page needed
 
@@ -92,6 +93,8 @@ const HomePage = ({ setIsCartOpen, addItemToCart, addItemToWishlist }) => {
     </Wrapper>
   );
 };
+
+export default HomePage;
 
 const Wrapper = styled.div`
   background: linear-gradient(90deg, #fff 50%, #f3f3f3 50%);
