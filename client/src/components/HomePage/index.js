@@ -6,6 +6,7 @@ import AllItems from "./AllItems";
 import CircularLoading from "../CircularLoading";
 // import SearchBar from "../SearchBar";
 
+
 /// responsive page needed
 
 const HomePage = ({ setIsCartOpen, addItemToCart, addItemToWishlist }) => {
@@ -110,26 +111,29 @@ const ItemWrapper = styled.div`
   flex-wrap: wrap; */
 `;
 
-// //For Searchbar functionality :
+//For Searchbar functionality :
 // const SearchPage = (productList) => {
-//   const [input, setInput, productList] = useState("");
+//   const [input, setInput, productList] = useState('');
 
-//   const fetchData = async () => {
+// const fetchData = async () => {
 //     return await fetch()
-//       .then((response) => response.json())
-//       .then((data) => {
-//         productList(data);
-//       });
-//   };
+//       .then(response => response.json())
+//       .then(data => {
 
-//   useEffect(() => {
-//     fetchData();
-//   }, []);
-//   return (
+//          productList(data)
+//        });}
+
+// 	useEffect( () => {fetchData()},[]);
+// return (
 //     <>
 //       <h1>What we offer</h1>
-//       <SearchBar input={input} onChange={updateInput} />
-//       <productList productList={productList} />
+//       <SearchBar 
+//        input={input} 
+//        onChange={updateInput}
+//       />
+//       <productList productList={productList}/>
 //     </>
-//   );
-// };
+//    );
+// }
+
+export default HomePage

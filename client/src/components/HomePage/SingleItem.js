@@ -24,10 +24,13 @@ const SingleItem = ({
     setIsCartOpen(true);
 
     addItemToCart(id, 1);
-    setInterval(() => {
-      window.location.reload()
-      
-    }, 500);
+  };
+
+
+  const handleAddWishlistBtn = (ev, id) => {
+    ev.stopPropagation();
+
+    addItemToWishlist(id)
   };
   console.log("addItemtoWishlist", addItemToWishlist);
   return (
@@ -43,6 +46,7 @@ const SingleItem = ({
         <ItemDetails>
           <ItemName>{item.name}</ItemName>
           <Price>{item.price}</Price>
+          <span>
           <AddButton
             id="addBtn"
             disabled={item.numInStock <= 0 ? true : false}
@@ -53,15 +57,16 @@ const SingleItem = ({
               handleAddBtn(ev, item._id);
             }}
           >
-            <WishButton onClick={() => addItemToWishlist(item._id)}>
-              <AiOutlineStar />
-            </WishButton>
             {item.numInStock > 0 ? (
               <MdShoppingCart />
             ) : (
               <MdRemoveShoppingCart />
             )}
           </AddButton>
+            <WishButton onClick={(ev) => handleAddWishlistBtn(ev, item._id)}>
+              <AiOutlineStar />
+            </WishButton>
+            </span>
         </ItemDetails>
       </ImgWrapper>
     </Item>
