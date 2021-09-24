@@ -12,7 +12,7 @@ import CheckoutPage from "./CheckoutPage";
 import Wishlist from "./Cart/Wishlist";
 
 function App() {
-  const [isCartOpen, setIsCartOpen] = useState(true);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
   // function addCartItem(item) {

@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ItemDescription from "./ItemDescription";
 
-const ItemDetails = ({addItemToCart}) => {
+
+const ItemDetails = ({ addItemToCart }) => {
+  
   const { itemId } = useParams();
 
   const [selectedItem, setSelectedItem] = useState();
   const [selectedCompany, setSelectedCompany] = useState();
 
-  console.log(selectedCompany);
   // let companyId = selectedItem ? selectedItem.companyId : null;
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const ItemDetails = ({addItemToCart}) => {
           addItemToCart={addItemToCart}
           selectedItem={selectedItem}
           selectedCompany={selectedCompany}
+          addItemToCart={addItemToCart}
         />
       </Backdrop>
     </ItemPage>

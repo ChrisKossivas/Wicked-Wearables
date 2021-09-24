@@ -1,7 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+
 import SingleItem from "./SingleItem";
+import SortBy from "./SortBy";
+
+// Funtion that will sort products by selected sort by
+const handleSort = (products, sort) => {
+  switch (sort) {
+    case "newest": {
+      return products.sort((a, b) =>
+        parseInt(a.name) > parseInt(b.name) ? 1 : -1
+      );
+    }
+    case "lowest": {
+      return products.sort((a, b) =>
+        parseFloat(a.price.replace(/[$,]/gi, "")) >
+        parseFloat(b.price.replace(/[$,]/gi, ""))
+          ? 1
+          : -1
+      );
+    }
+    case "highest": {
+      return products.sort((a, b) =>
+        parseFloat(a.price.replace(/[$,]/gi, "")) >
+        parseFloat(b.price.replace(/[$,]/gi, ""))
+          ? -1
+          : 1
+      );
+    }
+    default:
+      return products;
+  }
+};
 
 const AllItems = ({
   setIsCartOpen,
@@ -11,6 +42,12 @@ const AllItems = ({
   addItemToCart,
 }) => {
   const history = useHistory();
+  const dropDown = useRef();
+
+  // product sorted by select
+  const [sortedBy, setSortedBy] = useState();
+  const sortedProduct = handleSort(filteredProduct, sortedBy);
+
   // Page shows 12 items at once
   // Click 'Load More' buton to print next 12 items
   const numOfRender = 12;
@@ -20,20 +57,30 @@ const AllItems = ({
   };
   const slice = !filteredProduct ? 0 : filteredProduct.slice(0, numOfItem);
 
+  // when filteredProduct is not exist
+  // it will direct to error page
   if (!slice) history.push("/error");
-  // bodypart list
-  //   ["Arms", "Chest", "Feet", "Hands", "Head", "Neck", "Torso", "Waist", "Wrist"]
 
-  // when filteredProduct changes
-  // rendered items number goes back to the first 12
   useEffect(() => {
+    // when filteredProduct changes
+    // rendered items number goes back to the first 12
     setNumOfItem(numOfRender);
+
+    // when filteredProduct changes
+    // sortBy dropdown reset
+    setSortedBy();
+
+    let dropDownValue = dropDown.current;
+    if (dropDownValue && dropDownValue.value) {
+      dropDownValue.value = "";
+    }
   }, [filteredProduct]);
 
   return (
     <Main>
       {slice ? (
         <>
+          <SortBy setSortedBy={setSortedBy} dropDown={dropDown} />
           <Wrapper>
             {slice.map((item, i) => {
               return (
@@ -63,6 +110,7 @@ export default AllItems;
 const Main = styled.div`
   background-color: #f1f1f1;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  position: relative;
 
   min-height: 100vh;
   display: flex;
@@ -71,10 +119,6 @@ const Main = styled.div`
 `;
 
 const Wrapper = styled.div`
-  /* max-width: 1500px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap; */
   padding-top: 20px;
   display: grid;
   justify-content: center;
