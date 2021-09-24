@@ -1,10 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import cat from "./404_Cat.jpeg";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function CheckoutPage() {
-  const cartData = JSON.parse(localStorage.getItem("newCart"));
-  // console.log(cartData);
+  const [cartData, setCartData] = useState();
+
+  useEffect(() => {
+    setCartData(JSON.parse(localStorage.getItem("newCart")));
+  }, []);
+
   return (
     <Wrapper>
       <CustomerInfoWrapper>
@@ -141,23 +147,27 @@ export default function CheckoutPage() {
       {/* here we display the Cart information */}
       <CurrentCartWrapper>
         <>
-          <div>
-            <H2>Order summary</H2>
-            {cartData.map((lineItem) => (
-              <Footer>
-                <div>
-                  <Item>{lineItem.name}</Item>
-                  <Item>Category: {lineItem.category}</Item>
-                  {/* <Item>Body location: {lineItem.body_location}</Item> */}
-                  <Item>Price: {lineItem.price}</Item>
-                </div>
-                <p>
-                  <Img src={lineItem.imageSrc} alt="image" />
-                </p>
-              </Footer>
-            ))}
-            <div></div>
-          </div>
+          {cartData ? (
+            <div>
+              <H2>Order summary</H2>
+              {cartData.map((lineItem) => (
+                <Footer>
+                  <div>
+                    <Item>{lineItem.name}</Item>
+                    <Item>Category: {lineItem.category}</Item>
+                    {/* <Item>Body location: {lineItem.body_location}</Item> */}
+                    <Item>Price: {lineItem.price}</Item>
+                  </div>
+                  <p>
+                    <Img src={lineItem.imageSrc} alt="image" />
+                  </p>
+                </Footer>
+              ))}
+              <div></div>
+            </div>
+          ) : (
+            <Item>Empty cart. Go buy some stuff!</Item>
+          )}
         </>
       </CurrentCartWrapper>
     </Wrapper>
