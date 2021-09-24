@@ -4,20 +4,9 @@ import styled from "styled-components";
 import SingleItem from "../HomePage/SingleItem";
 
 const Cart = ({ setIsCartOpen, cartStatus, setCartStatus }) => {
-  // const [show, setShow] = useState(false);
   let history = useHistory();
 
   const [storageItems, setStorageItems] = useState();
-
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-  //is this necessary?
-  // useEffect(() => {
-  //   const userId = localStorage.getItem("userData");
-  //   if (fetchCartRequest) {
-  //     fetchCartRequest(userId);
-  //   }
-  // }, []);
 
   useEffect(() => {
     setStorageItems(JSON.parse(localStorage.getItem("newCart")));
@@ -25,6 +14,7 @@ const Cart = ({ setIsCartOpen, cartStatus, setCartStatus }) => {
 
   // change page to /checkout
   const clickToCheckout = () => {
+    setIsCartOpen(false)
     history.push("/checkout");
   };
 
@@ -43,7 +33,6 @@ const Cart = ({ setIsCartOpen, cartStatus, setCartStatus }) => {
     // window.location.reload()
   };
 
-  // const allCartItems = JSON.parse(localStorage.getItem("newCart"));
 
   return (
     <Container>
@@ -55,7 +44,7 @@ const Cart = ({ setIsCartOpen, cartStatus, setCartStatus }) => {
         {storageItems ? (
           storageItems.map((eachCartItem) => {
             // ***render data with styled components***
-            const { name, price, body_location, category, imageSrc, _id } =
+            const { name, price, imageSrc, _id } =
               eachCartItem;
 
             return (
@@ -136,11 +125,6 @@ const Container = styled.div`
   width: 400px;
   padding: 30px;
 ;`
-
-const DisplayCart = styled.div`
-
-`;
-
 
 const DisplayCart = styled.div``;
 

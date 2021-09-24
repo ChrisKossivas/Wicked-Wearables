@@ -5,12 +5,6 @@ const fileSytem = require("file-system");
 const items = JSON.parse(fileSytem.readFileSync("./data/items.json"));
 const companies = JSON.parse(fileSytem.readFileSync("./data/companies.json"));
 
-// shopping cart that will be added to localstorage through frontend
-let cart = [];
-
-// wishlist that will be added to localstorage through frontend
-let wishList = [];
-
 // Find Item by id
 const findItem = (itemId) => {
   const result = items.find((item) => item._id === Number(itemId));

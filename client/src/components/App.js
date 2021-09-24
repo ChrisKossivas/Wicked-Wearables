@@ -27,9 +27,7 @@ function App() {
 
   // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity
   const addItemToCart = (_id, quantity) => {
-    // if (stopBtnClick) {
-    //   return;
-    // }
+
     const requestAddCart = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,9 +41,7 @@ function App() {
           const oldCart = JSON.parse(localStorage.getItem("newCart")) || [];
 
           for (let i = 0; i < oldCart.length; i++) {
-            // console.log(oldCart[i]._id);
             if (oldCart[i]._id === cart._id) {
-              // console.log("same!");
               return;
 
             }
@@ -54,6 +50,7 @@ function App() {
           oldCart.push(cart);
           localStorage.setItem("newCart", JSON.stringify(oldCart));
           setCartStatus(!cartStatus);
+        }
       });
   };
 
@@ -133,24 +130,12 @@ function App() {
   );
 }
 
-
-//render(){
-//  return(
-//    <div className="App">
-//    <searchBar placeholder="We got it all" handleChange={(qty) => console.log(qty.target.value)}/>
-//    </div>
-//  )
-//}
-
-
-// Comment to test
-export default App;
-
 const Main = styled.div`
-  /* background: var(--color-orange); */
   display: flex;
   flex-direction: column;
-  /* height: 100%; */
   height: 100vh;
   width: 100%;
 `;
+
+export default App;
+

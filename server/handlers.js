@@ -158,20 +158,6 @@ const addToCart = (req, res) => {
     return;
   }
 
-  // let addCartItem = cartAdd(item, itemId, quantity);
-
-  // // Check if Item in stock
-  // if (addCartItem === null) {
-  //   res.status(400).json({ status: 400, message: "Item Out Of Stock" });
-  //   return;
-  // }
-
-  // // Check if Item already in Cart
-  // if (addCartItem === "Already In Cart") {
-  //   res.status(400).json({ status: 400, message: "Item Already In Cart" });
-  //   return;
-  // }
-
   // Return cart array of object items if it passes checks above
   return res
     .status(200)
@@ -217,20 +203,12 @@ const addToWishList = (req, res) => {
     res.status(400).json({ status: 400, message: "Single Item is not found" });
     return;
   }
-  // let wishList = wishListAdd(item, itemId);
-  // console.log(wishList);
-
-  // if (wishList === "Already In Wish List") {
-  //   res.status(400).json({ status: 400, message: "Item already in Wish List" });
-  //   return;
-  // }
 
   return res
     .status(200)
     .json({
       status: 200,
       wishList: item,
-      // wishListCount: wishList.length,
       message: "Wishlist Items!",
     });
 };
@@ -254,14 +232,7 @@ const getCompanies = async (req, res) => {
   }
 };
 
-// Function for deleting cart item
-const deleteCartItem = (req, res) => {
-  const { itemId } = req.params
-  
 
-  cartDelete(itemId)
-
-}
 
 module.exports = {
   getItems,
@@ -270,5 +241,4 @@ module.exports = {
   getCompanyById,
   addToWishList,
   getCompanies,
-  deleteCartItem,
 };

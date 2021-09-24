@@ -88,7 +88,6 @@ const ImgWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* overflow: hidden; */
   position: relative;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in, transform 0.2s ease-in;
