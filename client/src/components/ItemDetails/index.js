@@ -3,9 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ItemDescription from "./ItemDescription";
 
-
-const ItemDetails = ({ addItemToCart, addItemToWishlist }) => {
-
+const ItemDetails = ({ addItemToCart, addItemToWishlist, setIsCartOpen }) => {
   const { itemId } = useParams();
 
   const [selectedItem, setSelectedItem] = useState();
@@ -46,6 +44,7 @@ const ItemDetails = ({ addItemToCart, addItemToWishlist }) => {
           addItemToCart={addItemToCart}
           selectedCompany={selectedCompany}
           addItemToCart={addItemToCart}
+          setIsCartOpen={setIsCartOpen}
         />
       </Backdrop>
     </ItemPage>

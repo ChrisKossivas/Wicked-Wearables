@@ -7,13 +7,13 @@ const ItemDescription = ({
   selectedCompany,
   addItemToCart,
   addItemToWishlist,
+  setIsCartOpen,
 }) => {
   const { name, price, category, body_location, imageSrc, numInStock, _id } =
     selectedItem;
 
   const initialQty = numInStock <= 0 ? 0 : 1;
   const [quantity, setQuantity] = useState(initialQty);
-
 
   // Function that will validate quantity number
   const validateQty = (num) => {
@@ -30,6 +30,15 @@ const ItemDescription = ({
   const handleAdd = () => {
     const result = quantity + 1;
     validateQty(result);
+    setIsCartOpen(true);
+  };
+
+  // Funtion that will be called when you press add to cart button on item
+  const handleAddBtn = (ev, id, quantity) => {
+    ev.stopPropagation();
+    setIsCartOpen(true);
+
+    addItemToCart(id, quantity);
   };
 
   return (
@@ -59,7 +68,7 @@ const ItemDescription = ({
         {numInStock <= 0 ? (
           <CartBtn disabled>Out of Stock</CartBtn>
         ) : (
-          <CartBtn onClick={() => addItemToCart(_id, quantity)}>
+          <CartBtn onClick={(ev) => handleAddBtn(ev, _id, quantity)}>
             Add to Cart
           </CartBtn>
         )}
@@ -169,7 +178,7 @@ const CartBtn = styled.button`
   font-size: 1.4rem;
   border: none;
   border-radius: 15px;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1rem;
   cursor: pointer;
   transition: transform 0.4s ease-in, background-color 0.4s ease-in;
 

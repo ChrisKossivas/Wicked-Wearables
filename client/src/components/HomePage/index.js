@@ -6,7 +6,6 @@ import AllItems from "./AllItems";
 import CircularLoading from "../CircularLoading";
 // import SearchBar from "../SearchBar";
 
-
 /// responsive page needed
 
 const HomePage = ({ setIsCartOpen, addItemToCart, addItemToWishlist }) => {
@@ -113,6 +112,7 @@ const ItemWrapper = styled.div`
 
 //For Searchbar functionality :
 // const SearchPage = (productList) => {
+
 //   const [input, setInput, productList] = useState('');
 
 // const fetchData = async () => {

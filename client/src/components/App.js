@@ -14,7 +14,9 @@ import ConfirmPage from "./ConfirmPage";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartStatus, setCartStatus] = useState(false);
+
+  // const [cartItems, setCartItems] = useState([]);
 
   const [stopBtnClick, setStopBtnClick] = useState(false)
 
@@ -22,7 +24,7 @@ function App() {
   //   setCartItems([...cartItems, item]);
   // }
 
-  // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity 
+  // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity
   const addItemToCart = (_id, quantity) => {
     // if (stopBtnClick) {
     //   return;
@@ -37,19 +39,20 @@ function App() {
       .then((newCart) => {
         const { message, cart } = newCart;
         if (message === "Cart Items!") {
-          const oldCart = JSON.parse(localStorage.getItem('newCart')) || [];
-          console.log(oldCart)
-          console.log(cart._id)
+          const oldCart = JSON.parse(localStorage.getItem("newCart")) || [];
+
           for (let i = 0; i < oldCart.length; i++) {
+            // console.log(oldCart[i]._id);
             if (oldCart[i]._id === cart._id) {
-              return
+              // console.log("same!");
+              return;
+
             }
           }
-          cart.numInStock -= quantity
-          oldCart.push(cart)
+          cart.numInStock -= quantity;
+          oldCart.push(cart);
           localStorage.setItem("newCart", JSON.stringify(oldCart));
-          // setStopBtnClick(true)
-        } 
+          setCartStatus(!cartStatus);
       });
   };
 
@@ -97,6 +100,7 @@ function App() {
             <ItemDetails
               addItemToWishlist={addItemToWishlist}
               addItemToCart={addItemToCart}
+              setIsCartOpen={setIsCartOpen}
             />
           </Route>
           <Route exact path="/error">
@@ -116,7 +120,11 @@ function App() {
           </Route>
         </Switch>
         {isCartOpen && (
-          <CartModal setIsCartOpen={setIsCartOpen} cartItems={cartItems} />
+          <CartModal
+            setIsCartOpen={setIsCartOpen}
+            cartStatus={cartStatus}
+            setCartStatus={setCartStatus}
+          />
         )}
       </Main>
     </BrowserRouter>
