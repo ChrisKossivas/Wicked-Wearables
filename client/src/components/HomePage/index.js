@@ -93,6 +93,8 @@ const HomePage = ({ setIsCartOpen, addItemToCart, addItemToWishlist }) => {
   );
 };
 
+export default HomePage;
+
 const Wrapper = styled.div`
   background: linear-gradient(90deg, #fff 50%, #f3f3f3 50%);
   width: 100vw;
@@ -110,26 +112,28 @@ const ItemWrapper = styled.div`
 
 //For Searchbar functionality :
 // const SearchPage = (productList) => {
-//   const [input, setInput, productList] = useState("");
 
-//   const fetchData = async () => {
+//   const [input, setInput, productList] = useState('');
+
+// const fetchData = async () => {
 //     return await fetch()
-//       .then((response) => response.json())
-//       .then((data) => {
-//         productList(data);
-//       });
-//   };
+//       .then(response => response.json())
+//       .then(data => {
 
-//   useEffect(() => {
-//     fetchData();
-//   }, []);
-//   return (
+//          productList(data)
+//        });}
+
+// 	useEffect( () => {fetchData()},[]);
+// return (
 //     <>
 //       <h1>What we offer</h1>
-//       <SearchBar input={input} onChange={updateInput} />
-//       <productList productList={productList} />
+//       <SearchBar 
+//        input={input} 
+//        onChange={updateInput}
+//       />
+//       <productList productList={productList}/>
 //     </>
-//   );
-// };
+//    );
+// }
 
-export default HomePage;
+export default HomePage

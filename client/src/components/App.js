@@ -10,6 +10,7 @@ import ItemDescription from "./ItemDetails/ItemDescription";
 import ErrorPage from "./ErrorPage";
 import CheckoutPage from "./CheckoutPage";
 import Wishlist from "./Cart/Wishlist";
+import ConfirmPage from "./ConfirmPage";
 
 function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -17,12 +18,17 @@ function App() {
 
   // const [cartItems, setCartItems] = useState([]);
 
+  const [stopBtnClick, setStopBtnClick] = useState(false)
+
   // function addCartItem(item) {
   //   setCartItems([...cartItems, item]);
   // }
 
   // Fetch to find selected item and add the item to cart(***localStorage*(*) based on itemId and selected quantity
   const addItemToCart = (_id, quantity) => {
+    // if (stopBtnClick) {
+    //   return;
+    // }
     const requestAddCart = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -40,15 +46,18 @@ function App() {
             if (oldCart[i]._id === cart._id) {
               // console.log("same!");
               return;
+
             }
           }
           cart.numInStock -= quantity;
           oldCart.push(cart);
           localStorage.setItem("newCart", JSON.stringify(oldCart));
           setCartStatus(!cartStatus);
-        }
       });
   };
+
+
+
   const addItemToWishlist = (_id) => {
     const requestAddWishlist = {
       method: "POST",
@@ -59,16 +68,19 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         const { message, wishList } = data;
-        if (message === "Wish List Items!") {
-          localStorage.setItem("Wishlist", JSON.stringify(wishList));
-          // setCartStatus("idle");
-        } else if (message === "Already In Wishlist") {
-          return;
+        if (message === "Wishlist Items!") {
+          const oldWishlist = JSON.parse(localStorage.getItem('Wishlist')) || [];
+          for (let i = 0; i < oldWishlist.length; i++) {
+            if (oldWishlist[i]._id === wishList._id) {
+              return
+            }
+          }
+          oldWishlist.push(wishList)
+          localStorage.setItem("Wishlist", JSON.stringify(oldWishlist));
         }
       });
   };
 
-  //console.log(cartItems)
   return (
     <BrowserRouter>
       <GlobalStyles />
@@ -102,6 +114,9 @@ function App() {
           </Route>
           <Route exact path="/checkout">
             <CheckoutPage></CheckoutPage>
+          </Route>
+          <Route exact path="/confirm">
+            <ConfirmPage />
           </Route>
         </Switch>
         {isCartOpen && (

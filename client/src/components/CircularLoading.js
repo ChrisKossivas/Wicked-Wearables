@@ -2,8 +2,6 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { FiLoader } from "react-icons/fi";
 
-// REMOVE COMMENTS AFTER!!!
-
 export default function CircularLoading() {
   return (
     <Wrapper>
