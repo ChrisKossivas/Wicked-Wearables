@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-const User = JSON.parse(localStorage.getItem('User'))
-
-
 const ConfirmPage = () => {
+  const [user, setUser] = useState()
+  
+  
+  useEffect(() => {
+    if (localStorage.getItem("User") !== null ) {
+    setUser(JSON.parse(localStorage.getItem("User")));
+    }
+  }, []);
 
   return (
     <Wrapper>
-      {localStorage.getItem("User") !== null ? (
+      {user ? (
         <>
         <Success>Success!</Success>
-          <Confirmed>Thank you for your order, {User.name}!</Confirmed>
+          <Confirmed>Thank you for your order, {user.name}!</Confirmed>
         </>
       ) : (
         <>
